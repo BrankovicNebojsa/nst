@@ -7,6 +7,7 @@ package nst.springboot.restexample01.controller.service.impl;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
+
 import nst.springboot.restexample01.controller.domain.Department;
 import nst.springboot.restexample01.controller.repository.DepartmentRepository;
 import nst.springboot.restexample01.controller.service.DepartmentService;
@@ -17,7 +18,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 /**
- *
  * @author student2
  */
 @Service
@@ -85,7 +85,8 @@ public class DepartmentServiceImpl implements DepartmentService {
                 .stream().map(entity -> departmentConverter.toDto(entity))
                 .collect(Collectors.toList());
     }
-@Override
+
+    @Override
     public List<DepartmentDto> getAll() {
         return departmentRepository
                 .findAll()
