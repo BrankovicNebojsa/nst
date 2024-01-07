@@ -4,28 +4,18 @@
  */
 package nst.springboot.restexample01.domain;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
 
-/**
- *
- * @author student2
- */
 @Entity
 @Table(name = "tbl_department")
 public class Department {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    
+
     @NotEmpty(message = "Ime je obavezno polje")
-    @Size(min = 2, max = 10, message = "Broj znakova je od 2 do 10")
     @Column(name = "name")
     private String name;
 
@@ -36,6 +26,7 @@ public class Department {
         this.id = id;
         this.name = name;
     }
+
 
     public String getName() {
         return name;
@@ -52,5 +43,5 @@ public class Department {
     public void setId(Long id) {
         this.id = id;
     }
-    
+
 }

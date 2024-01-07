@@ -10,21 +10,16 @@ import nst.springboot.restexample01.dto.SubjectDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-/**
- *
- * @author student2
- */
-
 @Component
-public class SubjectConverter implements DtoEntityConverter<SubjectDto, Subject>{
+public class SubjectConverter implements DtoEntityConverter<SubjectDto, Subject> {
     @Autowired
     private DepartmentConverter departmentConverter;
-    
+
     @Override
     public SubjectDto toDto(Subject entity) {
         return new SubjectDto(
-                entity.getId(), 
-                entity.getName(), entity.getEsbp(), 
+                entity.getId(),
+                entity.getName(), entity.getEsbp(),
                 departmentConverter.toDto(entity.getDepartment())
         );
     }
@@ -32,10 +27,10 @@ public class SubjectConverter implements DtoEntityConverter<SubjectDto, Subject>
     @Override
     public Subject toEntity(SubjectDto dto) {
         return new Subject(
-                dto.getId(), 
-                dto.getName(), 
+                dto.getId(),
+                dto.getName(),
                 dto.getEsbp(),
-        departmentConverter.toEntity(dto.getDepartmentDto()));
+                departmentConverter.toEntity(dto.getDepartmentDto()));
     }
-    
+
 }

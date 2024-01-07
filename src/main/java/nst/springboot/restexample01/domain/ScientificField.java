@@ -18,6 +18,11 @@ public class ScientificField {
         this.name = name;
     }
 
+    public ScientificField(Long id, String name) {
+        this.id = id;
+        this.name = name;
+    }
+
     public void setId(Long id) {
         this.id = id;
     }

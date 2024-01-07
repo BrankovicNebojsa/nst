@@ -19,11 +19,20 @@ public class AcademicTitleHistory {
     @OneToOne
     @JoinColumn(name = "scientific_field_id")
     private ScientificField scientificField;
-    @ManyToOne
+    @ManyToOne()
     @JoinColumn(name = "member_id")
     private Member member;
 
+
     public AcademicTitleHistory() {
+    }
+
+    public AcademicTitleHistory(Date startDate, Date endDate, AcademicTitle academicTitle, ScientificField scientificField, Member member) {
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.academicTitle = academicTitle;
+        this.scientificField = scientificField;
+        this.member = member;
     }
 
     public AcademicTitleHistory(Long id, Date startDate, Date endDate, AcademicTitle academicTitle, ScientificField scientificField, Member member) {

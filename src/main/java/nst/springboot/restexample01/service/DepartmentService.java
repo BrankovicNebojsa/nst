@@ -7,10 +7,7 @@ package nst.springboot.restexample01.service;
 import java.util.List;
 import nst.springboot.restexample01.dto.DepartmentDto;
 import org.springframework.data.domain.Pageable;
-/**
- *
- * @author student2
- */
+
 public interface DepartmentService {
     DepartmentDto save(DepartmentDto departmentDto) throws Exception;
     List<DepartmentDto> getAll(Pageable pageable);

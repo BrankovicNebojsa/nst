@@ -8,10 +8,6 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import java.io.Serializable;
 
-/**
- *
- * @author student2
- */
 public class DepartmentDto implements Serializable{
     private Long id;
     

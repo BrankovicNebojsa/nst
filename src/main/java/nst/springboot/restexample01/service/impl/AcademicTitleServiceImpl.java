@@ -1,11 +1,11 @@
 package nst.springboot.restexample01.service.impl;
 
 import nst.springboot.restexample01.domain.AcademicTitle;
+import nst.springboot.restexample01.exception.EntityAlreadyExistsException;
 import nst.springboot.restexample01.repository.AcademicTitleRepository;
 import nst.springboot.restexample01.service.AcademicTitleService;
 import nst.springboot.restexample01.converter.impl.AcademicTitleConverter;
 import nst.springboot.restexample01.dto.AcademicTitleDto;
-import nst.springboot.restexample01.exception.AcademicTitleAlreadyExistsException;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
@@ -28,7 +28,7 @@ public class AcademicTitleServiceImpl implements AcademicTitleService {
     public AcademicTitleDto save(AcademicTitleDto academicTitleDto) throws Exception {
         Optional<AcademicTitle> academicTitleOptional = academicTitleRepository.findByName(academicTitleDto.getName());
         if (academicTitleOptional.isPresent()) {
-            throw new AcademicTitleAlreadyExistsException("Akademska titula sa tim nazivom vec postoji!");
+            throw new EntityAlreadyExistsException("Akademska titula sa tim nazivom vec postoji!");
         } else {
             AcademicTitle academicTitle = academicTitleConverter.toEntity(academicTitleDto);
             academicTitle = academicTitleRepository.save(academicTitle);

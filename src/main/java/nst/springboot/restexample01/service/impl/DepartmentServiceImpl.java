@@ -9,17 +9,14 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 import nst.springboot.restexample01.domain.Department;
+import nst.springboot.restexample01.exception.EntityAlreadyExistsException;
 import nst.springboot.restexample01.repository.DepartmentRepository;
 import nst.springboot.restexample01.service.DepartmentService;
 import nst.springboot.restexample01.converter.impl.DepartmentConverter;
 import nst.springboot.restexample01.dto.DepartmentDto;
-import nst.springboot.restexample01.exception.DepartmentAlreadyExistException;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-/**
- * @author student2
- */
 @Service
 public class DepartmentServiceImpl implements DepartmentService {
 
@@ -37,7 +34,7 @@ public class DepartmentServiceImpl implements DepartmentService {
     public DepartmentDto save(DepartmentDto departmentDto) throws Exception {
         Optional<Department> dept = departmentRepository.findByName(departmentDto.getName());
         if (dept.isPresent()) {
-            throw new DepartmentAlreadyExistException("Department sa tim imenom postoji!");
+            throw new EntityAlreadyExistsException("Department sa tim imenom postoji!");
         } else {
             //DTO - > Entity
             //Department department = new Department(departmentDto.getId(), departmentDto.getName());

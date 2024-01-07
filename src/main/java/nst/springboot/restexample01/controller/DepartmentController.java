@@ -7,9 +7,9 @@ package nst.springboot.restexample01.controller;
 import jakarta.validation.Valid;
 import java.util.List;
 import nst.springboot.restexample01.domain.Department;
+import nst.springboot.restexample01.exception.EntityAlreadyExistsException;
 import nst.springboot.restexample01.service.DepartmentService;
 import nst.springboot.restexample01.dto.DepartmentDto;
-import nst.springboot.restexample01.exception.DepartmentAlreadyExistException;
 import nst.springboot.restexample01.exception.MyErrorDetails;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -26,10 +26,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-/**
- *
- * @author student2
- */
 @RestController
 @RequestMapping("/department")
 public class DepartmentController {
@@ -117,8 +113,8 @@ public class DepartmentController {
         return new ResponseEntity<>(myErrorDetails, HttpStatus.NOT_FOUND);
 
     }*/
-    @ExceptionHandler(DepartmentAlreadyExistException.class)
-    public ResponseEntity<MyErrorDetails> handleException(DepartmentAlreadyExistException e) {
+    @ExceptionHandler(EntityAlreadyExistsException.class)
+    public ResponseEntity<MyErrorDetails> handleException(EntityAlreadyExistsException e) {
         System.out.println("nst.springboot.restexample01.controller.DepartmentController.handleException()");
         System.out.println("-----------pozvana metoda za obradu izuzetka u kontroleru -------------");
 

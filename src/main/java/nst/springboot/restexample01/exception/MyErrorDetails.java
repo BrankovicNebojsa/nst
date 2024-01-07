@@ -4,10 +4,6 @@
  */
 package nst.springboot.restexample01.exception;
 
-/**
- *
- * @author student2
- */
 public class MyErrorDetails {
     private String message;
 

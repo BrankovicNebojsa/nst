@@ -1,11 +1,11 @@
 package nst.springboot.restexample01.service.impl;
 
 import nst.springboot.restexample01.domain.EducationTitle;
+import nst.springboot.restexample01.exception.EntityAlreadyExistsException;
 import nst.springboot.restexample01.repository.EducationTitleRepository;
 import nst.springboot.restexample01.service.EducationTitleService;
 import nst.springboot.restexample01.converter.impl.EducationTitleConverter;
 import nst.springboot.restexample01.dto.EducationTitleDto;
-import nst.springboot.restexample01.exception.EducationalTitleAlreadyExistsException;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
@@ -27,7 +27,7 @@ public class EducationTitleServiceImpl implements EducationTitleService {
     public EducationTitleDto save(EducationTitleDto educationTitleDto) throws Exception {
         Optional<EducationTitle> eduTitleOptional = educationTitleRepository.findByName(educationTitleDto.getName());
         if (eduTitleOptional.isPresent()) {
-            throw new EducationalTitleAlreadyExistsException("Zvanje sa tim nazivom vec postoji!");
+            throw new EntityAlreadyExistsException("Zvanje sa tim nazivom vec postoji!");
         } else {
             //DTO - > Entity
             //Department department = new Department(departmentDto.getId(), departmentDto.getName());

@@ -3,13 +3,39 @@
                    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
                         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
 
-   <!-- kreiraj tabelu depratment-->
+    <!-- kreiraj tabelu depratment-->
     <changeSet id="create-department" author="d.savic">
         <sqlFile path="ddl/create-department.sql" relativeToChangelogFile="true"/>
     </changeSet>
+
+    <!-- kreiraj tabelu academic_title-->
+    <changeSet id="create-academic-title" author="n.brankovic">
+        <sqlFile path="ddl/create-academic-title.sql" relativeToChangelogFile="true"/>
+    </changeSet>
+    <!-- kreiraj tabelu scientific_field-->
+    <changeSet id="create-scientific-field" author="n.brankovic">
+        <sqlFile path="ddl/create-scientific-field.sql" relativeToChangelogFile="true"/>
+    </changeSet>
+    <!-- kreiraj tabelu education_title-->
+    <changeSet id="create-education-title" author="n.brankovic">
+        <sqlFile path="ddl/create-education-title.sql" relativeToChangelogFile="true"/>
+    </changeSet>
+
     <!-- popuni tabelu depratment-->
     <changeSet id="init-department" author="n.brankovic">
         <sqlFile path="dml/init-department.sql" relativeToChangelogFile="true"/>
+    </changeSet>
+    <!-- popuni tabelu academic_title-->
+    <changeSet id="init-academic-title" author="n.brankovic">
+        <sqlFile path="dml/init-academic-title.sql" relativeToChangelogFile="true"/>
+    </changeSet>
+    <!-- popuni tabelu scientific_field-->
+    <changeSet id="init-scientific-field" author="n.brankovic">
+        <sqlFile path="dml/init-scientific-field.sql" relativeToChangelogFile="true"/>
+    </changeSet>
+    <!-- popuni tabelu education_title-->
+    <changeSet id="init-education-title" author="n.brankovic">
+        <sqlFile path="dml/init-education-title.sql" relativeToChangelogFile="true"/>
     </changeSet>
 
     <!-- kreiraj tabelu subject-->
@@ -20,23 +46,14 @@
     <changeSet id="init-subject" author="n.brankovic">
         <sqlFile path="dml/init-subject.sql" relativeToChangelogFile="true"/>
     </changeSet>
-
-    <!-- kreiraj tabelu education_title-->
-    <changeSet id="create-education-title" author="n.brankovic">
-        <sqlFile path="ddl/create-education-title.sql" relativeToChangelogFile="true"/>
-    </changeSet>
-    <!-- popuni tabelu education_title-->
-    <changeSet id="init-education-title" author="n.brankovic">
-        <sqlFile path="dml/init-education-title.sql" relativeToChangelogFile="true"/>
+    <!-- kreiraj tabelu member-->
+    <changeSet id="create-member" author="n.brankovic">
+        <sqlFile path="ddl/create-member.sql" relativeToChangelogFile="true"/>
     </changeSet>
 
-    <!-- kreiraj tabelu academic_title-->
-    <changeSet id="create-academic-title" author="n.brankovic">
-        <sqlFile path="ddl/create-academic-title.sql" relativeToChangelogFile="true"/>
-    </changeSet>
-    <!-- popuni tabelu academic_title-->
-    <changeSet id="init-academic-title" author="n.brankovic">
-        <sqlFile path="dml/init-academic-title.sql" relativeToChangelogFile="true"/>
+    <!-- popuni tabelu member-->
+    <changeSet id="init-member" author="n.brankovic">
+        <sqlFile path="dml/init-member.sql" relativeToChangelogFile="true"/>
     </changeSet>
 
 </databaseChangeLog>

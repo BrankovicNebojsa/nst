@@ -18,10 +18,6 @@ import nst.springboot.restexample01.dto.SubjectDto;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-/**
- *
- * @author student2
- */
 @Service
 public class SubjectServiceImpl implements SubjectService {
 

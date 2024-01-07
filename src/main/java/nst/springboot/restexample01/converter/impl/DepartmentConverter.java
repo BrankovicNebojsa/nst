@@ -9,11 +9,6 @@ import nst.springboot.restexample01.converter.DtoEntityConverter;
 import nst.springboot.restexample01.dto.DepartmentDto;
 import org.springframework.stereotype.Component;
 
-/**
- *
- * @author student2
- */
-
 @Component
 public class DepartmentConverter implements DtoEntityConverter<DepartmentDto, Department>{
 

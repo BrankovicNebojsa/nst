@@ -6,11 +6,6 @@ package nst.springboot.restexample01.dto;
 
 import java.io.Serializable;
 
-/**
- *
- * @author Dules
- */
-
 public class SubjectDto implements Serializable {
     private Long id;
     private String name;
