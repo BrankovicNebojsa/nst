@@ -1,4 +1,4 @@
-package nst.springboot.restexample01.controller.service;
+package nst.springboot.restexample01.service;
 
 import nst.springboot.restexample01.dto.EducationTitleDto;
 import org.springframework.data.domain.Pageable;

@@ -1,10 +1,7 @@
 package nst.springboot.restexample01.controller;
 
 import jakarta.validation.Valid;
-import nst.springboot.restexample01.controller.domain.Department;
-import nst.springboot.restexample01.controller.domain.EducationTitle;
-import nst.springboot.restexample01.controller.service.EducationTitleService;
-import nst.springboot.restexample01.dto.DepartmentDto;
+import nst.springboot.restexample01.service.EducationTitleService;
 import nst.springboot.restexample01.dto.EducationTitleDto;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;

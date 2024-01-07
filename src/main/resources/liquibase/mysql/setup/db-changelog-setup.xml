@@ -7,13 +7,14 @@
     <changeSet id="create-department" author="d.savic">
         <sqlFile path="ddl/create-department.sql" relativeToChangelogFile="true"/>
     </changeSet>
-   <!-- kreiraj tabelu subject-->
-    <changeSet id="create-subject" author="n.brankovic">
-        <sqlFile path="ddl/create-subject.sql" relativeToChangelogFile="true"/>
-    </changeSet>
     <!-- popuni tabelu depratment-->
     <changeSet id="init-department" author="n.brankovic">
         <sqlFile path="dml/init-department.sql" relativeToChangelogFile="true"/>
+    </changeSet>
+
+    <!-- kreiraj tabelu subject-->
+    <changeSet id="create-subject" author="n.brankovic">
+        <sqlFile path="ddl/create-subject.sql" relativeToChangelogFile="true"/>
     </changeSet>
     <!-- popuni tabelu subject-->
     <changeSet id="init-subject" author="n.brankovic">
@@ -28,4 +29,14 @@
     <changeSet id="init-education-title" author="n.brankovic">
         <sqlFile path="dml/init-education-title.sql" relativeToChangelogFile="true"/>
     </changeSet>
+
+    <!-- kreiraj tabelu academic_title-->
+    <changeSet id="create-academic-title" author="n.brankovic">
+        <sqlFile path="ddl/create-academic-title.sql" relativeToChangelogFile="true"/>
+    </changeSet>
+    <!-- popuni tabelu academic_title-->
+    <changeSet id="init-academic-title" author="n.brankovic">
+        <sqlFile path="dml/init-academic-title.sql" relativeToChangelogFile="true"/>
+    </changeSet>
+
 </databaseChangeLog>

@@ -1,9 +1,8 @@
-package nst.springboot.restexample01.controller.service.impl;
+package nst.springboot.restexample01.service.impl;
 
-import nst.springboot.restexample01.controller.domain.Department;
-import nst.springboot.restexample01.controller.domain.EducationTitle;
-import nst.springboot.restexample01.controller.repository.EducationTitleRepository;
-import nst.springboot.restexample01.controller.service.EducationTitleService;
+import nst.springboot.restexample01.domain.EducationTitle;
+import nst.springboot.restexample01.repository.EducationTitleRepository;
+import nst.springboot.restexample01.service.EducationTitleService;
 import nst.springboot.restexample01.converter.impl.EducationTitleConverter;
 import nst.springboot.restexample01.dto.EducationTitleDto;
 import nst.springboot.restexample01.exception.EducationalTitleAlreadyExistsException;

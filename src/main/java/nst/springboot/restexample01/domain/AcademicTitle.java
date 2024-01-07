@@ -1,20 +1,24 @@
-package nst.springboot.restexample01.controller.domain;
+package nst.springboot.restexample01.domain;
 
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "tbl_scientific_field")
-public class ScientificField {
+@Table(name = "tbl_academic_title")
+public class AcademicTitle {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     private String name;
 
-    public ScientificField() {
+    public AcademicTitle() {
     }
 
-    public ScientificField(String name) {
+    public AcademicTitle(String name) {
+        this.name = name;
+    }
+
+    public AcademicTitle(Long id, String name) {
+        this.id = id;
         this.name = name;
     }
 

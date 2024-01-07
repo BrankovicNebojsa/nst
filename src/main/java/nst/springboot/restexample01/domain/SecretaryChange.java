@@ -1,4 +1,4 @@
-package nst.springboot.restexample01.controller.domain;
+package nst.springboot.restexample01.domain;
 
 import jakarta.persistence.*;
 

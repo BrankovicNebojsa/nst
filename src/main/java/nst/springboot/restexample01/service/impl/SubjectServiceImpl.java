@@ -2,21 +2,20 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package nst.springboot.restexample01.controller.service.impl;
+package nst.springboot.restexample01.service.impl;
 
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
-import nst.springboot.restexample01.controller.domain.Department;
-import nst.springboot.restexample01.controller.domain.Subject;
-import nst.springboot.restexample01.controller.repository.DepartmentRepository;
-import nst.springboot.restexample01.controller.repository.SubjectRepository;
-import nst.springboot.restexample01.controller.service.SubjectService;
+import nst.springboot.restexample01.domain.Department;
+import nst.springboot.restexample01.domain.Subject;
+import nst.springboot.restexample01.repository.DepartmentRepository;
+import nst.springboot.restexample01.repository.SubjectRepository;
+import nst.springboot.restexample01.service.SubjectService;
 import nst.springboot.restexample01.converter.impl.DepartmentConverter;
 import nst.springboot.restexample01.converter.impl.SubjectConverter;
 import nst.springboot.restexample01.dto.SubjectDto;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
