@@ -1,10 +1,12 @@
 package nst.springboot.restexample01.service.impl;
 
 import nst.springboot.restexample01.converter.impl.AdministrationHistoryConverter;
+import nst.springboot.restexample01.converter.impl.MemberConverter;
 import nst.springboot.restexample01.domain.AdministrationHistory;
 import nst.springboot.restexample01.domain.Department;
 import nst.springboot.restexample01.domain.Member;
 import nst.springboot.restexample01.dto.AdministrationHistoryDto;
+import nst.springboot.restexample01.dto.MemberDto;
 import nst.springboot.restexample01.repository.AdministrationHistoryRepository;
 import nst.springboot.restexample01.repository.DepartmentRepository;
 import nst.springboot.restexample01.repository.MemberRepository;
@@ -20,17 +22,20 @@ import java.util.stream.Collectors;
 @Service
 public class AdministrationHistoryServiceImpl implements AdministrationHistoryService {
     private final DepartmentRepository departmentRepository;
+    private final MemberConverter memberConverter;
     private final MemberRepository memberRepository;
     private final AdministrationHistoryConverter administrationHistoryConverter;
     private final AdministrationHistoryRepository administrationHistoryRepository;
 
     public AdministrationHistoryServiceImpl(
             DepartmentRepository departmentRepository,
+            MemberConverter memberConverter,
             MemberRepository memberRepository,
             AdministrationHistoryConverter administrationHistoryConverter,
             AdministrationHistoryRepository administrationHistoryRepository
     ) {
         this.departmentRepository = departmentRepository;
+        this.memberConverter = memberConverter;
         this.memberRepository = memberRepository;
         this.administrationHistoryConverter = administrationHistoryConverter;
         this.administrationHistoryRepository = administrationHistoryRepository;
@@ -117,6 +122,28 @@ public class AdministrationHistoryServiceImpl implements AdministrationHistorySe
         if (administrationHistoryOptional.isPresent()) {
             AdministrationHistory administrationHistory = administrationHistoryOptional.get();
             return administrationHistoryConverter.toDto(administrationHistory);
+        } else {
+            throw new Exception("Administration history does not exist!");
+        }
+    }
+
+    @Override
+    public MemberDto findCurrentHeadOfDepartmentByDepartmentId(Long id) throws Exception {
+        Optional<AdministrationHistory> administrationHistoryOptional = administrationHistoryRepository.findByEndDateAndDepartmentId(null, id);
+        if (administrationHistoryOptional.isPresent()) {
+            AdministrationHistory administrationHistory = administrationHistoryOptional.get();
+            return memberConverter.toDto(administrationHistory.getHeadOfDepartment());
+        } else {
+            throw new Exception("Administration history does not exist!");
+        }
+    }
+
+    @Override
+    public MemberDto findCurrentSecretaryByDepartmentId(Long id) throws Exception {
+        Optional<AdministrationHistory> administrationHistoryOptional = administrationHistoryRepository.findByEndDateAndDepartmentId(null, id);
+        if (administrationHistoryOptional.isPresent()) {
+            AdministrationHistory administrationHistory = administrationHistoryOptional.get();
+            return memberConverter.toDto(administrationHistory.getSecretary());
         } else {
             throw new Exception("Administration history does not exist!");
         }

@@ -2,6 +2,7 @@ package nst.springboot.restexample01.controller;
 
 import jakarta.validation.Valid;
 import nst.springboot.restexample01.dto.AdministrationHistoryDto;
+import nst.springboot.restexample01.dto.MemberDto;
 import nst.springboot.restexample01.service.AdministrationHistoryService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -33,6 +34,16 @@ public class AdministrationHistoryController {
     @GetMapping("/{id}")
     public AdministrationHistoryDto findById(@PathVariable("id") Long id) throws Exception {
         return administrationHistoryService.findById(id);
+    }
+
+    @GetMapping("/head-of-department/{id}")
+    public MemberDto findCurrentHeadOfDepartmentByDepartmentId(@PathVariable("id") Long id) throws Exception {
+        return administrationHistoryService.findCurrentHeadOfDepartmentByDepartmentId(id);
+    }
+
+    @GetMapping("/secretary-of-department/{id}")
+    public MemberDto findCurrentSecretaryByDepartmentId(@PathVariable("id") Long id) throws Exception {
+        return administrationHistoryService.findCurrentSecretaryByDepartmentId(id);
     }
 
     @GetMapping("/query")
