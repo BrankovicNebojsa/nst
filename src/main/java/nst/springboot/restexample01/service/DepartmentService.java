@@ -17,4 +17,5 @@ public interface DepartmentService {
     void update(DepartmentDto department) throws Exception;
 
     DepartmentDto findById(Long id) throws Exception;
+
 }

@@ -6,9 +6,13 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Repository
 public interface MemberRepository extends JpaRepository<Member, Long> {
     @Override
     @Transactional(propagation = Propagation.MANDATORY)
     <S extends Member> S save(S entity);
+
+    List<Member> getAllByDepartmentId(Long id);
 }

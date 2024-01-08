@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/member")
+@RequestMapping("/members")
 public class MemberController {
     private final MemberService memberService;
 
@@ -33,6 +33,11 @@ public class MemberController {
     @GetMapping("/{id}")
     public MemberDto findById(@PathVariable("id") Long id) throws Exception {
         return memberService.findById(id);
+    }
+
+    @GetMapping("/department/{id}")
+    public List<MemberDto> findDepartmentMembers(@PathVariable("id") Long id) throws Exception {
+        return memberService.getAllByDepartmentId(id);
     }
 
     @GetMapping("/query")

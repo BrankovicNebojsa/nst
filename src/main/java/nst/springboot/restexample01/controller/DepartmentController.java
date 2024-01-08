@@ -15,15 +15,13 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/department")
+@RequestMapping("/departments")
 public class DepartmentController {
 
-    private DepartmentService departmentService;
+    private final DepartmentService departmentService;
 
     public DepartmentController(DepartmentService departmentService) {
         this.departmentService = departmentService;
-        System.out.println("nst.springboot.restexample01.controller.DepartmentController.<init>()");
-        System.out.println("kreiran je konroller!");
     }
 
     @PostMapping
@@ -53,14 +51,15 @@ public class DepartmentController {
 
     @GetMapping("/{id}")
     public DepartmentDto findById(@PathVariable("id") Long id) throws Exception {
-        System.out.println("Controller: " + id);
         return departmentService.findById(id);
     }
+
 
     @GetMapping("/query")
     public DepartmentDto queryById(@RequestParam("id") Long id) throws Exception {
         return departmentService.findById(id);
     }
+
 
     @DeleteMapping("/{id}")
     public ResponseEntity<String> delete(@PathVariable Long id) throws Exception {
@@ -71,7 +70,6 @@ public class DepartmentController {
 
     @ExceptionHandler(EntityAlreadyExistsException.class)
     public ResponseEntity<MyErrorDetails> handleException(EntityAlreadyExistsException e) {
-        System.out.println("nst.springboot.restexample01.controller.DepartmentController.handleException()");
         System.out.println("-----------pozvana metoda za obradu izuzetka u kontroleru -------------");
 
         MyErrorDetails myErrorDetails = new MyErrorDetails(e.getMessage());

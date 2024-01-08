@@ -12,6 +12,8 @@ public interface MemberService {
 
     List<MemberDto> getAll(Pageable pageable);
 
+    List<MemberDto> getAllByDepartmentId(Long id);
+
     void delete(Long id) throws Exception;
 
     void update(MemberDto memberDto) throws Exception;

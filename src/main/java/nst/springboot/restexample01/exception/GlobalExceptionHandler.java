@@ -21,7 +21,6 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<MyErrorDetails> handleException(Exception e) {
-        System.out.println("nst.springboot.restexample01.controller.DepartmentController.handleException()");
         System.out.println("-----------pozvana metoda za obradu izuzetka u kontroleru -------------");
 
         MyErrorDetails myErrorDetails = new MyErrorDetails(e.getMessage());

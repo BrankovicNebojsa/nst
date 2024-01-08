@@ -109,6 +109,15 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override
+    public List<MemberDto> getAllByDepartmentId(Long id) {
+        return memberRepository
+                .getAllByDepartmentId(id)
+                .stream().map(memberConverter::toDto)
+                .collect(Collectors.toList());
+    }
+
+
+    @Override
     public void delete(Long id) throws Exception {
         Optional<Member> member = memberRepository.findById(id);
         if (member.isPresent()) {

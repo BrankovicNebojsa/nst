@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/scientific-field")
+@RequestMapping("/scientific-fields")
 public class ScientificFieldController {
     private ScientificFieldService scientificFieldService;
 
@@ -48,7 +48,6 @@ public class ScientificFieldController {
 
     @GetMapping("/{id}")
     public ScientificFieldDto findById(@PathVariable("id") Long id) throws Exception {
-        System.out.println("Controller: " + id);
         return scientificFieldService.findById(id);
     }
 

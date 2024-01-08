@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/education-title")
+@RequestMapping("/education-titles")
 public class EducationTitleController {
 
     private EducationTitleService educationTitleService;
@@ -53,7 +53,6 @@ public class EducationTitleController {
 
     @GetMapping("/{id}")
     public EducationTitleDto findById(@PathVariable("id") Long id) throws Exception {
-        System.out.println("Controller: " + id);
         return educationTitleService.findById(id);
     }
 
