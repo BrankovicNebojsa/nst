@@ -2,7 +2,6 @@ package nst.springboot.restexample01.service;
 
 import nst.springboot.restexample01.dto.AcademicTitleDto;
 import org.springframework.data.domain.Pageable;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 

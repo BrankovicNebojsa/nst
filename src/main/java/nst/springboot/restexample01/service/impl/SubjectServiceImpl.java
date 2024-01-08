@@ -1,23 +1,19 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package nst.springboot.restexample01.service.impl;
+
+import nst.springboot.restexample01.converter.impl.SubjectConverter;
+import nst.springboot.restexample01.domain.Department;
+import nst.springboot.restexample01.domain.Subject;
+import nst.springboot.restexample01.dto.SubjectDto;
+import nst.springboot.restexample01.repository.DepartmentRepository;
+import nst.springboot.restexample01.repository.SubjectRepository;
+import nst.springboot.restexample01.service.SubjectService;
+import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
-
-import nst.springboot.restexample01.domain.Department;
-import nst.springboot.restexample01.domain.Subject;
-import nst.springboot.restexample01.repository.DepartmentRepository;
-import nst.springboot.restexample01.repository.SubjectRepository;
-import nst.springboot.restexample01.service.SubjectService;
-import nst.springboot.restexample01.converter.impl.SubjectConverter;
-import nst.springboot.restexample01.dto.SubjectDto;
-import org.springframework.data.domain.Pageable;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class SubjectServiceImpl implements SubjectService {
@@ -25,10 +21,7 @@ public class SubjectServiceImpl implements SubjectService {
     private final SubjectConverter subjectConverter;
     private final SubjectRepository subjectRepository;
 
-    public SubjectServiceImpl(
-            DepartmentRepository departmentRepository,
-            SubjectConverter subjectConverter,
-            SubjectRepository subjectRepository) {
+    public SubjectServiceImpl(DepartmentRepository departmentRepository, SubjectConverter subjectConverter, SubjectRepository subjectRepository) {
         this.departmentRepository = departmentRepository;
         this.subjectConverter = subjectConverter;
         this.subjectRepository = subjectRepository;
@@ -37,35 +30,30 @@ public class SubjectServiceImpl implements SubjectService {
     @Override
     @Transactional
     public SubjectDto save(SubjectDto subjectDto) throws Exception {
-        //sacuvaj subject
         Subject subject = subjectConverter.toEntity(subjectDto);
-        if (subject.getDepartment().getId() == null) {
-            departmentRepository.save(subject.getDepartment());
-        } else {
-            Optional<Department> dep = departmentRepository.findById(subject.getDepartment().getId());
-            if (dep.isEmpty()) {
-                departmentRepository.save(subject.getDepartment());
-            }
-        }
+        subject.setDepartment(handleDepartment(subject));
+
         subjectRepository.save(subject);
         return subjectDto;
-        //ako department ne postoji sacuvaj i department zajedno sa Subject/om
+    }
+
+    private Department handleDepartment(Subject subject) {
+        if (subject.getDepartment().getId() == null) {
+            return departmentRepository.save(subject.getDepartment());
+        } else {
+            Optional<Department> departmentOptional = departmentRepository.findById(subject.getDepartment().getId());
+            return departmentOptional.orElseGet(() -> departmentRepository.save(subject.getDepartment()));
+        }
     }
 
     @Override
     public List<SubjectDto> getAll() {
-        return subjectRepository
-                .findAll()
-                .stream().map(subjectConverter::toDto)
-                .collect(Collectors.toList());
+        return subjectRepository.findAll().stream().map(subjectConverter::toDto).collect(Collectors.toList());
     }
 
     @Override
     public List<SubjectDto> getAll(Pageable pageable) {
-        return subjectRepository
-                .findAll(pageable).getContent()
-                .stream().map(subjectConverter::toDto)
-                .collect(Collectors.toList());
+        return subjectRepository.findAll(pageable).getContent().stream().map(subjectConverter::toDto).collect(Collectors.toList());
     }
 
     @Override
@@ -89,7 +77,6 @@ public class SubjectServiceImpl implements SubjectService {
     public SubjectDto findById(Long id) throws Exception {
         Optional<Subject> subject = subjectRepository.findById(id);
         if (subject.isPresent()) {
-            //postoji
             Subject subj = subject.get();
             return subjectConverter.toDto(subj);
         } else {

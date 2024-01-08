@@ -1,10 +1,6 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package nst.springboot.restexample01.service.impl;
 
-import nst.springboot.restexample01.converter.impl.*;
+import nst.springboot.restexample01.converter.impl.MemberConverter;
 import nst.springboot.restexample01.domain.*;
 import nst.springboot.restexample01.dto.MemberDto;
 import nst.springboot.restexample01.repository.*;

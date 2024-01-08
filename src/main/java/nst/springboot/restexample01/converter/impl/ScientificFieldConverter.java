@@ -1,9 +1,7 @@
 package nst.springboot.restexample01.converter.impl;
 
 import nst.springboot.restexample01.converter.DtoEntityConverter;
-import nst.springboot.restexample01.domain.AcademicTitle;
 import nst.springboot.restexample01.domain.ScientificField;
-import nst.springboot.restexample01.dto.AcademicTitleDto;
 import nst.springboot.restexample01.dto.ScientificFieldDto;
 import org.springframework.stereotype.Component;
 

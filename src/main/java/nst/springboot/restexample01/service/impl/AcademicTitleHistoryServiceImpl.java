@@ -1,9 +1,15 @@
 package nst.springboot.restexample01.service.impl;
 
-import nst.springboot.restexample01.converter.impl.*;
-import nst.springboot.restexample01.domain.*;
+import nst.springboot.restexample01.converter.impl.AcademicTitleHistoryConverter;
+import nst.springboot.restexample01.domain.AcademicTitle;
+import nst.springboot.restexample01.domain.AcademicTitleHistory;
+import nst.springboot.restexample01.domain.Member;
+import nst.springboot.restexample01.domain.ScientificField;
 import nst.springboot.restexample01.dto.AcademicTitleHistoryDto;
-import nst.springboot.restexample01.repository.*;
+import nst.springboot.restexample01.repository.AcademicTitleHistoryRepository;
+import nst.springboot.restexample01.repository.AcademicTitleRepository;
+import nst.springboot.restexample01.repository.MemberRepository;
+import nst.springboot.restexample01.repository.ScientificFieldRepository;
 import nst.springboot.restexample01.service.AcademicTitleHistoryService;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;

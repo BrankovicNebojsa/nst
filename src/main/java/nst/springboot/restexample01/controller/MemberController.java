@@ -1,15 +1,8 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package nst.springboot.restexample01.controller;
 
 import jakarta.validation.Valid;
-import nst.springboot.restexample01.domain.Member;
 import nst.springboot.restexample01.dto.MemberDto;
-import nst.springboot.restexample01.dto.SubjectDto;
 import nst.springboot.restexample01.service.MemberService;
-import nst.springboot.restexample01.service.SubjectService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -46,10 +39,6 @@ public class MemberController {
     public MemberDto queryById(@RequestParam("id") Long id) throws Exception {
         return memberService.findById(id);
     }
-
-    //azuriraj
-
-
 
     @DeleteMapping("/{id}")
     public ResponseEntity<String> delete(@PathVariable Long id) throws Exception {

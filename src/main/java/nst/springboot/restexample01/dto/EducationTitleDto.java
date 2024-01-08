@@ -1,6 +1,7 @@
 package nst.springboot.restexample01.dto;
 
 import jakarta.validation.constraints.NotNull;
+
 import java.io.Serializable;
 
 public class EducationTitleDto implements Serializable {

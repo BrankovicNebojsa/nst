@@ -34,11 +34,7 @@ public class ScientificFieldController {
     }
 
     @GetMapping("/paging")
-    public ResponseEntity<List<ScientificFieldDto>> getAllByPage(
-            @RequestParam(name = "page", defaultValue = "0") int page,
-            @RequestParam(name = "pageSize", defaultValue = "2") int pageSize,
-            @RequestParam(name = "sortBy", defaultValue = "id") String sortBy,
-            @RequestParam(name = "sortDirection", defaultValue = "asc") String sortDirection) {
+    public ResponseEntity<List<ScientificFieldDto>> getAllByPage(@RequestParam(name = "page", defaultValue = "0") int page, @RequestParam(name = "pageSize", defaultValue = "2") int pageSize, @RequestParam(name = "sortBy", defaultValue = "id") String sortBy, @RequestParam(name = "sortDirection", defaultValue = "asc") String sortDirection) {
 
         Pageable pageable;
         if (sortDirection.equals("asc")) {
@@ -50,17 +46,12 @@ public class ScientificFieldController {
         return new ResponseEntity<>(scientificFieldDtos, HttpStatus.OK);
     }
 
-    //pronadji na osnovu ID/a
     @GetMapping("/{id}")
     public ScientificFieldDto findById(@PathVariable("id") Long id) throws Exception {
         System.out.println("Controller: " + id);
         return scientificFieldService.findById(id);
     }
 
-    //azuriraj
-
-
-    //obrisi
     @DeleteMapping("/{id}")
     public ResponseEntity<String> delete(@PathVariable Long id) throws Exception {
         scientificFieldService.delete(id);

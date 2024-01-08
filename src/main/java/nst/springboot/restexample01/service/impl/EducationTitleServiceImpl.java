@@ -1,11 +1,11 @@
 package nst.springboot.restexample01.service.impl;
 
+import nst.springboot.restexample01.converter.impl.EducationTitleConverter;
 import nst.springboot.restexample01.domain.EducationTitle;
+import nst.springboot.restexample01.dto.EducationTitleDto;
 import nst.springboot.restexample01.exception.EntityAlreadyExistsException;
 import nst.springboot.restexample01.repository.EducationTitleRepository;
 import nst.springboot.restexample01.service.EducationTitleService;
-import nst.springboot.restexample01.converter.impl.EducationTitleConverter;
-import nst.springboot.restexample01.dto.EducationTitleDto;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
@@ -29,8 +29,6 @@ public class EducationTitleServiceImpl implements EducationTitleService {
         if (eduTitleOptional.isPresent()) {
             throw new EntityAlreadyExistsException("Zvanje sa tim nazivom vec postoji!");
         } else {
-            //DTO - > Entity
-            //Department department = new Department(departmentDto.getId(), departmentDto.getName());
             EducationTitle educationTitle = educationTitleConverter.toEntity(educationTitleDto);
             educationTitle = educationTitleRepository.save(educationTitle);
             return educationTitleConverter.toDto(educationTitle);
@@ -55,10 +53,8 @@ public class EducationTitleServiceImpl implements EducationTitleService {
 
     @Override
     public void delete(Long id) throws Exception {
-        //proveri da li postoji education title
         Optional<EducationTitle> eduTitle = educationTitleRepository.findById(id);
         if (eduTitle.isPresent()) {
-            //postoji
             EducationTitle educationTitle = eduTitle.get();
             educationTitleRepository.delete(educationTitle);
         } else {
@@ -75,7 +71,6 @@ public class EducationTitleServiceImpl implements EducationTitleService {
     public EducationTitleDto findById(Long id) throws Exception {
         Optional<EducationTitle> eduTitle = educationTitleRepository.findById(id);
         if (eduTitle.isPresent()) {
-            //postoji
             EducationTitle educationTitle = eduTitle.get();
             return educationTitleConverter.toDto(educationTitle);
         } else {

@@ -50,17 +50,12 @@ public class AcademicTitleController {
         return new ResponseEntity<>(academicTitleDtos, HttpStatus.OK);
     }
 
-    //pronadji na osnovu ID/a
     @GetMapping("/{id}")
     public AcademicTitleDto findById(@PathVariable("id") Long id) throws Exception {
         System.out.println("Controller: " + id);
         return academicTitleService.findById(id);
     }
 
-    //azuriraj
-
-
-    //obrisi
     @DeleteMapping("/{id}")
     public ResponseEntity<String> delete(@PathVariable Long id) throws Exception {
         academicTitleService.delete(id);

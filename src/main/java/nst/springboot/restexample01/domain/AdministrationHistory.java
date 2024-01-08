@@ -3,7 +3,6 @@ package nst.springboot.restexample01.domain;
 import jakarta.persistence.*;
 
 import java.util.Date;
-import java.util.List;
 
 @Entity
 @Table(name = "tbl_administration_history")

@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package nst.springboot.restexample01.controller;
 
 import jakarta.validation.Valid;
@@ -48,11 +44,7 @@ public class AcademicTitleHistoryController {
     }
 
     @GetMapping("/paging")
-    public ResponseEntity<List<AcademicTitleHistoryDto>> getAllByPage(
-            @RequestParam(name = "page", defaultValue = "0") int page,
-            @RequestParam(name = "pageSize", defaultValue = "2") int pageSize,
-            @RequestParam(name = "sortBy", defaultValue = "id") String sortBy,
-            @RequestParam(name = "sortDirection", defaultValue = "asc") String sortDirection) {
+    public ResponseEntity<List<AcademicTitleHistoryDto>> getAllByPage(@RequestParam(name = "page", defaultValue = "0") int page, @RequestParam(name = "pageSize", defaultValue = "2") int pageSize, @RequestParam(name = "sortBy", defaultValue = "id") String sortBy, @RequestParam(name = "sortDirection", defaultValue = "asc") String sortDirection) {
 
         Pageable pageable;
         if (sortDirection.equals("asc")) {
@@ -63,9 +55,6 @@ public class AcademicTitleHistoryController {
         List<AcademicTitleHistoryDto> academicTitleHistoryDtos = academicTitleHistoryService.getAll(pageable);
         return new ResponseEntity<>(academicTitleHistoryDtos, HttpStatus.OK);
     }
-
-    //azuriraj
-
 
     @DeleteMapping("/{id}")
     public ResponseEntity<String> delete(@PathVariable Long id) throws Exception {

@@ -1,8 +1,8 @@
 package nst.springboot.restexample01.controller;
 
 import jakarta.validation.Valid;
-import nst.springboot.restexample01.service.EducationTitleService;
 import nst.springboot.restexample01.dto.EducationTitleDto;
+import nst.springboot.restexample01.service.EducationTitleService;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -24,7 +24,6 @@ public class EducationTitleController {
 
     @PostMapping
     public ResponseEntity<EducationTitleDto> save(@Valid @RequestBody EducationTitleDto educationTitleDto) throws Exception {
-        //ResponseEntity
         EducationTitleDto educationTitleDto1 = educationTitleService.save(educationTitleDto);
         return new ResponseEntity<>(educationTitleDto1, HttpStatus.CREATED);
     }
@@ -52,18 +51,12 @@ public class EducationTitleController {
         return new ResponseEntity<>(educationTitleDtos, HttpStatus.OK);
     }
 
-    //pronadji na osnovu ID/a
     @GetMapping("/{id}")
     public EducationTitleDto findById(@PathVariable("id") Long id) throws Exception {
         System.out.println("Controller: " + id);
         return educationTitleService.findById(id);
     }
 
-    //azuriraj
-
-
-
-    //obrisi
     @DeleteMapping("/{id}")
     public ResponseEntity<String> delete(@PathVariable Long id) throws Exception {
 

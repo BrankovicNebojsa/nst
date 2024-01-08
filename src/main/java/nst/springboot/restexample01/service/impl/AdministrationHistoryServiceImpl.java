@@ -1,9 +1,13 @@
 package nst.springboot.restexample01.service.impl;
 
-import nst.springboot.restexample01.converter.impl.*;
-import nst.springboot.restexample01.domain.*;
+import nst.springboot.restexample01.converter.impl.AdministrationHistoryConverter;
+import nst.springboot.restexample01.domain.AdministrationHistory;
+import nst.springboot.restexample01.domain.Department;
+import nst.springboot.restexample01.domain.Member;
 import nst.springboot.restexample01.dto.AdministrationHistoryDto;
-import nst.springboot.restexample01.repository.*;
+import nst.springboot.restexample01.repository.AdministrationHistoryRepository;
+import nst.springboot.restexample01.repository.DepartmentRepository;
+import nst.springboot.restexample01.repository.MemberRepository;
 import nst.springboot.restexample01.service.AdministrationHistoryService;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
