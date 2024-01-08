@@ -62,6 +62,14 @@
     <changeSet id="init-administration-history" author="n.brankovic">
         <sqlFile path="dml/init-administration-history.sql" relativeToChangelogFile="true"/>
     </changeSet>
+    <!-- kreiraj tabelu academic-title-history-->
+    <changeSet id="create-academic-title-history" author="n.brankovic">
+        <sqlFile path="ddl/create-academic-title-history.sql" relativeToChangelogFile="true"/>
+    </changeSet>
+    <!-- popuni tabelu academic-title-history-->
+    <changeSet id="init-academic-title-history" author="n.brankovic">
+        <sqlFile path="dml/init-academic-title-history.sql" relativeToChangelogFile="true"/>
+    </changeSet>
 
 
 </databaseChangeLog>

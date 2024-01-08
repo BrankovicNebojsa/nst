@@ -19,9 +19,8 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class DepartmentServiceImpl implements DepartmentService {
-
-    private DepartmentConverter departmentConverter;
-    private DepartmentRepository departmentRepository;
+    private final DepartmentConverter departmentConverter;
+    private final DepartmentRepository departmentRepository;
 
     public DepartmentServiceImpl(
             DepartmentRepository departmentRepository,
@@ -76,18 +75,19 @@ public class DepartmentServiceImpl implements DepartmentService {
     }
 
     @Override
-    public List<DepartmentDto> getAll(Pageable pageable) {
+    public List<DepartmentDto> getAll() {
         return departmentRepository
-                .findAll(pageable).getContent()
-                .stream().map(entity -> departmentConverter.toDto(entity))
+                .findAll()
+                .stream().map(departmentConverter::toDto)
                 .collect(Collectors.toList());
     }
 
     @Override
-    public List<DepartmentDto> getAll() {
+    public List<DepartmentDto> getAll(Pageable pageable) {
         return departmentRepository
-                .findAll()
-                .stream().map(entity -> departmentConverter.toDto(entity))
+                .findAll(pageable).getContent()
+                .stream().map(departmentConverter::toDto)
                 .collect(Collectors.toList());
     }
+
 }

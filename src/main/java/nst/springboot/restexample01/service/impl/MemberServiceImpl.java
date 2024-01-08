@@ -9,6 +9,7 @@ import nst.springboot.restexample01.domain.*;
 import nst.springboot.restexample01.dto.MemberDto;
 import nst.springboot.restexample01.repository.*;
 import nst.springboot.restexample01.service.MemberService;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -18,36 +19,23 @@ import java.util.stream.Collectors;
 
 @Service
 public class MemberServiceImpl implements MemberService {
-
-    private DepartmentConverter departmentConverter;
-    private DepartmentRepository departmentRepository;
-    private AcademicTitleConverter academicTitleConverter;
-    private AcademicTitleRepository academicTitleRepository;
-    private ScientificFieldConverter scientificFieldConverter;
-    private ScientificFieldRepository scientificFieldRepository;
-    private EducationTitleConverter educationTitleConverter;
-    private EducationTitleRepository educationTitleRepository;
-    private MemberConverter memberConverter;
-    private MemberRepository memberRepository;
+    private final DepartmentRepository departmentRepository;
+    private final AcademicTitleRepository academicTitleRepository;
+    private final ScientificFieldRepository scientificFieldRepository;
+    private final EducationTitleRepository educationTitleRepository;
+    private final MemberConverter memberConverter;
+    private final MemberRepository memberRepository;
 
     public MemberServiceImpl(
-            MemberRepository memberRepository,
-            MemberConverter memberConverter,
-            AcademicTitleConverter academicTitleConverter,
-            AcademicTitleRepository academicTitleRepository,
-            ScientificFieldConverter scientificFieldConverter,
-            ScientificFieldRepository scientificFieldRepository,
-            EducationTitleConverter educationTitleConverter,
-            EducationTitleRepository educationTitleRepository,
             DepartmentRepository departmentRepository,
-            DepartmentConverter departmentConverter) {
-        this.departmentConverter = departmentConverter;
+            AcademicTitleRepository academicTitleRepository,
+            ScientificFieldRepository scientificFieldRepository,
+            EducationTitleRepository educationTitleRepository,
+            MemberConverter memberConverter,
+            MemberRepository memberRepository) {
         this.departmentRepository = departmentRepository;
-        this.academicTitleConverter = academicTitleConverter;
         this.academicTitleRepository = academicTitleRepository;
-        this.scientificFieldConverter = scientificFieldConverter;
         this.scientificFieldRepository = scientificFieldRepository;
-        this.educationTitleConverter = educationTitleConverter;
         this.educationTitleRepository = educationTitleRepository;
         this.memberConverter = memberConverter;
         this.memberRepository = memberRepository;
@@ -58,84 +46,52 @@ public class MemberServiceImpl implements MemberService {
     public MemberDto save(MemberDto memberDto) throws Exception {
         Member member = memberConverter.toEntity(memberDto);
 
-        member.getDepartment().setId(handleDepartment(member));
-        member.getAcademicTitle().setId(handleAcademicTitle(member));
-        member.getScientificField().setId(handleScientificField(member));
-        member.getEducationTitle().setId(handleEducationTitle(member));
+        member.setDepartment(handleDepartment(member));
+        member.setAcademicTitle(handleAcademicTitle(member));
+        member.setScientificField(handleScientificField(member));
+        member.setEducationTitle(handleEducationTitle(member));
 
         Member member1 = memberRepository.save(member);
         return memberConverter.toDto(member1);
     }
 
-    private Long handleDepartment(Member member) {
+    private Department handleDepartment(Member member) {
         if (member.getDepartment().getId() == null) {
             Optional<Department> departmentOptional = departmentRepository.findByName(member.getDepartment().getName());
-            if (departmentOptional.isEmpty()) {
-                Department department = departmentRepository.save(member.getDepartment());
-                return department.getId();
-            }
-            return departmentOptional.get().getId();
+            return departmentOptional.orElseGet(() -> departmentRepository.save(member.getDepartment()));
         } else {
             Optional<Department> departmentOptional = departmentRepository.findById(member.getDepartment().getId());
-            if (departmentOptional.isEmpty()) {
-                Department department = departmentRepository.save(member.getDepartment());
-                return department.getId();
-            }
-            return departmentOptional.get().getId();
+            return departmentOptional.orElseGet(() -> departmentRepository.save(member.getDepartment()));
         }
     }
 
-    private Long handleAcademicTitle(Member member) {
+    private AcademicTitle handleAcademicTitle(Member member) {
         if (member.getAcademicTitle().getId() == null) {
             Optional<AcademicTitle> academicTitleOptional = academicTitleRepository.findByName(member.getAcademicTitle().getName());
-            if (academicTitleOptional.isEmpty()) {
-                AcademicTitle academicTitle = academicTitleRepository.save(member.getAcademicTitle());
-                return academicTitle.getId();
-            }
-            return academicTitleOptional.get().getId();
+            return academicTitleOptional.orElseGet(() -> academicTitleRepository.save(member.getAcademicTitle()));
         } else {
             Optional<AcademicTitle> academicTitleOptional = academicTitleRepository.findById(member.getAcademicTitle().getId());
-            if (academicTitleOptional.isEmpty()) {
-                AcademicTitle academicTitle = academicTitleRepository.save(member.getAcademicTitle());
-                return academicTitle.getId();
-            }
-            return academicTitleOptional.get().getId();
+            return academicTitleOptional.orElseGet(() -> academicTitleRepository.save(member.getAcademicTitle()));
         }
     }
 
-    private Long handleScientificField(Member member) {
+    private ScientificField handleScientificField(Member member) {
         if (member.getScientificField().getId() == null) {
             Optional<ScientificField> scientificFieldOptional = scientificFieldRepository.findByName(member.getScientificField().getName());
-            if (scientificFieldOptional.isEmpty()) {
-                ScientificField scientificField = scientificFieldRepository.save(member.getScientificField());
-                return scientificField.getId();
-            }
-            return scientificFieldOptional.get().getId();
+            return scientificFieldOptional.orElseGet(() -> scientificFieldRepository.save(member.getScientificField()));
         } else {
             Optional<ScientificField> scientificFieldOptional = scientificFieldRepository.findById(member.getScientificField().getId());
-            if (scientificFieldOptional.isEmpty()) {
-                ScientificField scientificField = scientificFieldRepository.save(member.getScientificField());
-                return scientificField.getId();
-            }
-            return scientificFieldOptional.get().getId();
+            return scientificFieldOptional.orElseGet(() -> scientificFieldRepository.save(member.getScientificField()));
         }
     }
 
-    private Long handleEducationTitle(Member member) {
+    private EducationTitle handleEducationTitle(Member member) {
         if (member.getEducationTitle().getId() == null) {
             Optional<EducationTitle> educationTitleOptional = educationTitleRepository.findByName(member.getEducationTitle().getName());
-            if (educationTitleOptional.isEmpty()) {
-                EducationTitle eduTitle = educationTitleRepository.save(member.getEducationTitle());
-                return eduTitle.getId();
-            }
-            return educationTitleOptional.get().getId();
+            return educationTitleOptional.orElseGet(() -> educationTitleRepository.save(member.getEducationTitle()));
         } else {
             Optional<EducationTitle> educationTitle = educationTitleRepository.findById(member.getEducationTitle().getId());
-            if (educationTitle.isEmpty()) {
-                EducationTitle eduTitle = educationTitleRepository.save(member.getEducationTitle());
-                return eduTitle.getId();
-            }
-            return educationTitle.get().getId();
+            return educationTitle.orElseGet(() -> educationTitleRepository.save(member.getEducationTitle()));
         }
     }
 
@@ -144,7 +100,15 @@ public class MemberServiceImpl implements MemberService {
     public List<MemberDto> getAll() {
         return memberRepository
                 .findAll()
-                .stream().map(entity -> memberConverter.toDto(entity))
+                .stream().map(memberConverter::toDto)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<MemberDto> getAll(Pageable pageable) {
+        return memberRepository
+                .findAll(pageable).getContent()
+                .stream().map(memberConverter::toDto)
                 .collect(Collectors.toList());
     }
 

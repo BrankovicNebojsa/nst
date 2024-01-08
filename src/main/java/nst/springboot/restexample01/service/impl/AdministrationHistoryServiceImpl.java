@@ -5,6 +5,7 @@ import nst.springboot.restexample01.domain.*;
 import nst.springboot.restexample01.dto.AdministrationHistoryDto;
 import nst.springboot.restexample01.repository.*;
 import nst.springboot.restexample01.service.AdministrationHistoryService;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -14,25 +15,18 @@ import java.util.stream.Collectors;
 
 @Service
 public class AdministrationHistoryServiceImpl implements AdministrationHistoryService {
-
-    private DepartmentConverter departmentConverter;
-    private DepartmentRepository departmentRepository;
-    private MemberConverter memberConverter;
-    private MemberRepository memberRepository;
-    private AdministrationHistoryConverter administrationHistoryConverter;
-    private AdministrationHistoryRepository administrationHistoryRepository;
+    private final DepartmentRepository departmentRepository;
+    private final MemberRepository memberRepository;
+    private final AdministrationHistoryConverter administrationHistoryConverter;
+    private final AdministrationHistoryRepository administrationHistoryRepository;
 
     public AdministrationHistoryServiceImpl(
             DepartmentRepository departmentRepository,
-            DepartmentConverter departmentConverter,
             MemberRepository memberRepository,
-            MemberConverter memberConverter,
             AdministrationHistoryConverter administrationHistoryConverter,
             AdministrationHistoryRepository administrationHistoryRepository
     ) {
-        this.departmentConverter = departmentConverter;
         this.departmentRepository = departmentRepository;
-        this.memberConverter = memberConverter;
         this.memberRepository = memberRepository;
         this.administrationHistoryConverter = administrationHistoryConverter;
         this.administrationHistoryRepository = administrationHistoryRepository;
@@ -43,57 +37,39 @@ public class AdministrationHistoryServiceImpl implements AdministrationHistorySe
     public AdministrationHistoryDto save(AdministrationHistoryDto administrationHistoryDto) throws Exception {
         AdministrationHistory administrationHistory = administrationHistoryConverter.toEntity(administrationHistoryDto);
 
-        administrationHistory.getDepartment().setId(handleDepartment(administrationHistory));
-        administrationHistory.getHeadOfDepartment().setId(handleHeadOfDepartment(administrationHistory));
-        administrationHistory.getSecretary().setId(handleSecretary(administrationHistory));
+        administrationHistory.setDepartment(handleDepartment(administrationHistory));
+        administrationHistory.setHeadOfDepartment(handleHeadOfDepartment(administrationHistory));
+        administrationHistory.setSecretary(handleSecretary(administrationHistory));
 
         AdministrationHistory administrationHistory1 = administrationHistoryRepository.save(administrationHistory);
         return administrationHistoryConverter.toDto(administrationHistory1);
     }
 
-    private Long handleDepartment(AdministrationHistory administrationHistory) {
+    private Department handleDepartment(AdministrationHistory administrationHistory) {
         if (administrationHistory.getDepartment().getId() == null) {
             Optional<Department> departmentOptional = departmentRepository.findByName(administrationHistory.getDepartment().getName());
-            if (departmentOptional.isEmpty()) {
-                Department department = departmentRepository.save(administrationHistory.getDepartment());
-                return department.getId();
-            }
-            return departmentOptional.get().getId();
+            return departmentOptional.orElseGet(() -> departmentRepository.save(administrationHistory.getDepartment()));
         } else {
             Optional<Department> departmentOptional = departmentRepository.findById(administrationHistory.getDepartment().getId());
-            if (departmentOptional.isEmpty()) {
-                Department department = departmentRepository.save(administrationHistory.getDepartment());
-                return department.getId();
-            }
-            return departmentOptional.get().getId();
+            return departmentOptional.orElseGet(() -> departmentRepository.save(administrationHistory.getDepartment()));
         }
     }
 
-    private Long handleHeadOfDepartment(AdministrationHistory administrationHistory) {
+    private Member handleHeadOfDepartment(AdministrationHistory administrationHistory) {
         if (administrationHistory.getHeadOfDepartment().getId() == null) {
-            Member headOfDepartment = memberRepository.save(administrationHistory.getHeadOfDepartment());
-            return headOfDepartment.getId();
+            return memberRepository.save(administrationHistory.getHeadOfDepartment());
         } else {
             Optional<Member> memberOptional = memberRepository.findById(administrationHistory.getHeadOfDepartment().getId());
-            if (memberOptional.isEmpty()) {
-                Member headOfDepartment = memberRepository.save(administrationHistory.getHeadOfDepartment());
-                return headOfDepartment.getId();
-            }
-            return memberOptional.get().getId();
+            return memberOptional.orElseGet(() -> memberRepository.save(administrationHistory.getHeadOfDepartment()));
         }
     }
 
-    private Long handleSecretary(AdministrationHistory administrationHistory) {
+    private Member handleSecretary(AdministrationHistory administrationHistory) {
         if (administrationHistory.getSecretary().getId() == null) {
-            Member secretary = memberRepository.save(administrationHistory.getSecretary());
-            return secretary.getId();
+            return memberRepository.save(administrationHistory.getSecretary());
         } else {
             Optional<Member> memberOptional = memberRepository.findById(administrationHistory.getSecretary().getId());
-            if (memberOptional.isEmpty()) {
-                Member secretary = memberRepository.save(administrationHistory.getSecretary());
-                return secretary.getId();
-            }
-            return memberOptional.get().getId();
+            return memberOptional.orElseGet(() -> memberRepository.save(administrationHistory.getSecretary()));
         }
     }
 
@@ -102,7 +78,15 @@ public class AdministrationHistoryServiceImpl implements AdministrationHistorySe
     public List<AdministrationHistoryDto> getAll() {
         return administrationHistoryRepository
                 .findAll()
-                .stream().map(entity -> administrationHistoryConverter.toDto(entity))
+                .stream().map(administrationHistoryConverter::toDto)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<AdministrationHistoryDto> getAll(Pageable pageable) {
+        return administrationHistoryRepository
+                .findAll(pageable).getContent()
+                .stream().map(administrationHistoryConverter::toDto)
                 .collect(Collectors.toList());
     }
 

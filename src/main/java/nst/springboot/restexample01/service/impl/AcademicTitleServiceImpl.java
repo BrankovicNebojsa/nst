@@ -15,9 +15,8 @@ import java.util.stream.Collectors;
 
 @Service
 public class AcademicTitleServiceImpl implements AcademicTitleService {
-
-    private AcademicTitleRepository academicTitleRepository;
-    private AcademicTitleConverter academicTitleConverter;
+    private final AcademicTitleRepository academicTitleRepository;
+    private final AcademicTitleConverter academicTitleConverter;
 
     public AcademicTitleServiceImpl(AcademicTitleRepository academicTitleRepository, AcademicTitleConverter academicTitleConverter) {
         this.academicTitleRepository = academicTitleRepository;
@@ -40,7 +39,7 @@ public class AcademicTitleServiceImpl implements AcademicTitleService {
     public List<AcademicTitleDto> getAll() {
         return academicTitleRepository
                 .findAll()
-                .stream().map(entity -> academicTitleConverter.toDto(entity))
+                .stream().map(academicTitleConverter::toDto)
                 .collect(Collectors.toList());
     }
 
@@ -48,7 +47,7 @@ public class AcademicTitleServiceImpl implements AcademicTitleService {
     public List<AcademicTitleDto> getAll(Pageable pageable) {
         return academicTitleRepository
                 .findAll(pageable).getContent()
-                .stream().map(entity -> academicTitleConverter.toDto(entity))
+                .stream().map(academicTitleConverter::toDto)
                 .collect(Collectors.toList());
     }
 

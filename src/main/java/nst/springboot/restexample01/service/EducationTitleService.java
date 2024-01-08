@@ -10,7 +10,9 @@ public interface EducationTitleService {
     EducationTitleDto save(EducationTitleDto educationTitleDto) throws Exception;
 
     List<EducationTitleDto> getAll();
+
     List<EducationTitleDto> getAll(Pageable pageable);
+
     void delete(Long id) throws Exception;
 
     void update(EducationTitleDto educationTitleDto) throws Exception;

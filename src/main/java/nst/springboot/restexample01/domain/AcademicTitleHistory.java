@@ -11,37 +11,31 @@ public class AcademicTitleHistory {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Column(name = "start_date")
     private Date startDate;
+    @Column(name = "end_date")
     private Date endDate;
-    @OneToOne
-    @JoinColumn(name = "academic_title_id")
-    private AcademicTitle academicTitle;
-    @OneToOne
-    @JoinColumn(name = "scientific_field_id")
-    private ScientificField scientificField;
     @ManyToOne()
     @JoinColumn(name = "member_id")
     private Member member;
+    @ManyToOne()
+    @JoinColumn(name = "academic_title_id")
+    private AcademicTitle academicTitle;
+    @ManyToOne()
+    @JoinColumn(name = "scientific_field_id")
+    private ScientificField scientificField;
 
 
     public AcademicTitleHistory() {
     }
 
-    public AcademicTitleHistory(Date startDate, Date endDate, AcademicTitle academicTitle, ScientificField scientificField, Member member) {
-        this.startDate = startDate;
-        this.endDate = endDate;
-        this.academicTitle = academicTitle;
-        this.scientificField = scientificField;
-        this.member = member;
-    }
-
-    public AcademicTitleHistory(Long id, Date startDate, Date endDate, AcademicTitle academicTitle, ScientificField scientificField, Member member) {
+    public AcademicTitleHistory(Long id, Date startDate, Date endDate, Member member, AcademicTitle academicTitle, ScientificField scientificField) {
         this.id = id;
         this.startDate = startDate;
         this.endDate = endDate;
+        this.member = member;
         this.academicTitle = academicTitle;
         this.scientificField = scientificField;
-        this.member = member;
     }
 
     public Long getId() {
@@ -56,16 +50,16 @@ public class AcademicTitleHistory {
         return startDate;
     }
 
-    public void setStartDate(Date startDate) {
-        this.startDate = startDate;
-    }
-
     public Date getEndDate() {
         return endDate;
     }
 
-    public void setEndDate(Date endDate) {
-        this.endDate = endDate;
+    public Member getMember() {
+        return member;
+    }
+
+    public void setMember(Member member) {
+        this.member = member;
     }
 
     public AcademicTitle getAcademicTitle() {
@@ -84,11 +78,4 @@ public class AcademicTitleHistory {
         this.scientificField = scientificField;
     }
 
-    public Member getMember() {
-        return member;
-    }
-
-    public void setMember(Member member) {
-        this.member = member;
-    }
 }

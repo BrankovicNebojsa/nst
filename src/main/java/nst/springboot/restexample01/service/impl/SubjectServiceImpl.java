@@ -7,34 +7,31 @@ package nst.springboot.restexample01.service.impl;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
+
 import nst.springboot.restexample01.domain.Department;
 import nst.springboot.restexample01.domain.Subject;
 import nst.springboot.restexample01.repository.DepartmentRepository;
 import nst.springboot.restexample01.repository.SubjectRepository;
 import nst.springboot.restexample01.service.SubjectService;
-import nst.springboot.restexample01.converter.impl.DepartmentConverter;
 import nst.springboot.restexample01.converter.impl.SubjectConverter;
 import nst.springboot.restexample01.dto.SubjectDto;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class SubjectServiceImpl implements SubjectService {
-
-    private DepartmentConverter departmentConverter;
-    private SubjectConverter subjectConverter;
-
-    private SubjectRepository subjectRepository;
-    private DepartmentRepository departmentRepository;
+    private final DepartmentRepository departmentRepository;
+    private final SubjectConverter subjectConverter;
+    private final SubjectRepository subjectRepository;
 
     public SubjectServiceImpl(
-            SubjectRepository subjectRepository,
             DepartmentRepository departmentRepository,
-            DepartmentConverter departmentConverter, SubjectConverter subjectConverter) {
+            SubjectConverter subjectConverter,
+            SubjectRepository subjectRepository) {
         this.departmentRepository = departmentRepository;
-        this.subjectRepository = subjectRepository;
-        this.departmentConverter = departmentConverter;
         this.subjectConverter = subjectConverter;
+        this.subjectRepository = subjectRepository;
     }
 
     @Override
@@ -42,12 +39,12 @@ public class SubjectServiceImpl implements SubjectService {
     public SubjectDto save(SubjectDto subjectDto) throws Exception {
         //sacuvaj subject
         Subject subject = subjectConverter.toEntity(subjectDto);
-        if(subject.getDepartment().getId()==null){
+        if (subject.getDepartment().getId() == null) {
             departmentRepository.save(subject.getDepartment());
-        }else{
-        Optional<Department> dep = departmentRepository.findById(subject.getDepartment().getId());
-        if(dep.isEmpty()){
-            departmentRepository.save(subject.getDepartment());
+        } else {
+            Optional<Department> dep = departmentRepository.findById(subject.getDepartment().getId());
+            if (dep.isEmpty()) {
+                departmentRepository.save(subject.getDepartment());
             }
         }
         subjectRepository.save(subject);
@@ -59,7 +56,15 @@ public class SubjectServiceImpl implements SubjectService {
     public List<SubjectDto> getAll() {
         return subjectRepository
                 .findAll()
-                .stream().map(entity -> subjectConverter.toDto(entity))
+                .stream().map(subjectConverter::toDto)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<SubjectDto> getAll(Pageable pageable) {
+        return subjectRepository
+                .findAll(pageable).getContent()
+                .stream().map(subjectConverter::toDto)
                 .collect(Collectors.toList());
     }
 
