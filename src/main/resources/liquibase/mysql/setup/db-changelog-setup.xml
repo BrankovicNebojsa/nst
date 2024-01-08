@@ -50,10 +50,18 @@
     <changeSet id="create-member" author="n.brankovic">
         <sqlFile path="ddl/create-member.sql" relativeToChangelogFile="true"/>
     </changeSet>
-
     <!-- popuni tabelu member-->
     <changeSet id="init-member" author="n.brankovic">
         <sqlFile path="dml/init-member.sql" relativeToChangelogFile="true"/>
     </changeSet>
+    <!-- kreiraj tabelu administration-history-->
+    <changeSet id="create-administration-history" author="n.brankovic">
+        <sqlFile path="ddl/create-administration-history.sql" relativeToChangelogFile="true"/>
+    </changeSet>
+    <!-- popuni tabelu administration-history-->
+    <changeSet id="init-administration-history" author="n.brankovic">
+        <sqlFile path="dml/init-administration-history.sql" relativeToChangelogFile="true"/>
+    </changeSet>
+
 
 </databaseChangeLog>

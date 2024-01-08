@@ -3,6 +3,7 @@ package nst.springboot.restexample01.domain;
 import jakarta.persistence.*;
 
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "tbl_administration_history")
@@ -10,36 +11,38 @@ public class AdministrationHistory {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Column(name = "start_date")
     private Date startDate;
+    @Column(name = "end_date")
     private Date endDate;
-    @OneToOne()
-    @JoinColumn(name="headOfDepartment_id")
-    private Member headOfDepartment;
-    @OneToOne()
-    @JoinColumn(name="secretary_id")
-    private Member secretary;
     @ManyToOne()
-    @JoinColumn(name="department_id")
+    @JoinColumn(name = "department_id")
     private Department department;
+    @ManyToOne()
+    @JoinColumn(name = "head_of_department_id")
+    private Member headOfDepartment;
+    @ManyToOne()
+    @JoinColumn(name = "secretary_id")
+    private Member secretary;
 
     public AdministrationHistory() {
     }
 
-    public AdministrationHistory(Date startDate, Date endDate, Member headOfDepartment, Member secretary, Department department) {
+    public AdministrationHistory(Date startDate, Date endDate, Department department, Member headOfDepartment, Member secretary) {
         this.startDate = startDate;
         this.endDate = endDate;
+        this.department = department;
         this.headOfDepartment = headOfDepartment;
         this.secretary = secretary;
-        this.department = department;
     }
 
-    public AdministrationHistory(Long id, Date startDate, Date endDate, Member headOfDepartment, Member secretary, Department department) {
+    public AdministrationHistory(Long id, Date startDate, Date endDate, Department department, Member headOfDepartment, Member secretary) {
         this.id = id;
         this.startDate = startDate;
         this.endDate = endDate;
+        this.department = department;
         this.headOfDepartment = headOfDepartment;
         this.secretary = secretary;
-        this.department = department;
     }
 
     public Long getId() {
@@ -66,6 +69,14 @@ public class AdministrationHistory {
         this.endDate = endDate;
     }
 
+    public Department getDepartment() {
+        return department;
+    }
+
+    public void setDepartment(Department department) {
+        this.department = department;
+    }
+
     public Member getHeadOfDepartment() {
         return headOfDepartment;
     }
@@ -82,11 +93,4 @@ public class AdministrationHistory {
         this.secretary = secretary;
     }
 
-    public Department getDepartment() {
-        return department;
-    }
-
-    public void setDepartment(Department department) {
-        this.department = department;
-    }
 }

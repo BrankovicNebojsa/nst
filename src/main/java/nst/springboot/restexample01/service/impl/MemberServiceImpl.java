@@ -63,8 +63,8 @@ public class MemberServiceImpl implements MemberService {
         member.getScientificField().setId(handleScientificField(member));
         member.getEducationTitle().setId(handleEducationTitle(member));
 
-        memberRepository.save(member);
-        return memberDto;
+        Member member1 = memberRepository.save(member);
+        return memberConverter.toDto(member1);
     }
 
     private Long handleDepartment(Member member) {
