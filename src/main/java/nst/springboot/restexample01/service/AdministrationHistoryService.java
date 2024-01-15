@@ -15,7 +15,7 @@ public interface AdministrationHistoryService {
 
     void delete(Long id) throws Exception;
 
-    void update(AdministrationHistoryDto administrationHistoryDto) throws Exception;
+    AdministrationHistoryDto update(Long id, AdministrationHistoryDto administrationHistoryDto) throws Exception;
 
     AdministrationHistoryDto findById(Long id) throws Exception;
 

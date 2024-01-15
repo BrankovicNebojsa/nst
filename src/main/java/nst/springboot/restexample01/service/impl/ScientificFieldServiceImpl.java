@@ -8,6 +8,7 @@ import nst.springboot.restexample01.repository.ScientificFieldRepository;
 import nst.springboot.restexample01.service.ScientificFieldService;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -62,9 +63,15 @@ public class ScientificFieldServiceImpl implements ScientificFieldService {
         }
     }
 
+    @Transactional
     @Override
-    public void update(ScientificFieldDto scientificFieldDto) throws Exception {
-
+    public ScientificFieldDto update(Long id, ScientificFieldDto scientificFieldDto) throws Exception {
+        Optional<ScientificField> scientificFieldOptional = scientificFieldRepository.findById(id);
+        if (scientificFieldOptional.isPresent()) {
+            scientificFieldDto.setId(scientificFieldOptional.get().getId());
+            return scientificFieldConverter.toDto(scientificFieldRepository.save(scientificFieldConverter.toEntity(scientificFieldDto)));
+        }
+        throw new Exception("Scientific field with that id does not exist");
     }
 
     @Override

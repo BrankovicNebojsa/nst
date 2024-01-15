@@ -14,7 +14,7 @@ public interface ScientificFieldService {
 
     void delete(Long id) throws Exception;
 
-    void update(ScientificFieldDto scientificFieldDto) throws Exception;
+    ScientificFieldDto update(Long id, ScientificFieldDto scientificFieldDto) throws Exception;
 
     ScientificFieldDto findById(Long id) throws Exception;
 }

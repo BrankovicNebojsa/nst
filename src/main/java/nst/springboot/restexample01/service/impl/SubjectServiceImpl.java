@@ -68,9 +68,15 @@ public class SubjectServiceImpl implements SubjectService {
 
     }
 
+    @Transactional
     @Override
-    public void update(SubjectDto subjectDto) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public SubjectDto update(Long id, SubjectDto subjectDto) throws Exception {
+        Optional<Subject> subjectOptional = subjectRepository.findById(id);
+        if (subjectOptional.isPresent()) {
+            subjectDto.setId(subjectOptional.get().getId());
+            return subjectConverter.toDto(subjectRepository.save(subjectConverter.toEntity(subjectDto)));
+        }
+        throw new Exception("Subject with that id does not exist");
     }
 
     @Override

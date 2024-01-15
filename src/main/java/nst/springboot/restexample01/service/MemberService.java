@@ -16,7 +16,7 @@ public interface MemberService {
 
     void delete(Long id) throws Exception;
 
-    void update(MemberDto memberDto) throws Exception;
+    MemberDto update(Long id, MemberDto memberDto) throws Exception;
 
     MemberDto findById(Long id) throws Exception;
 }

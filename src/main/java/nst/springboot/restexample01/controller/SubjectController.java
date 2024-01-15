@@ -41,6 +41,11 @@ public class SubjectController {
         return subjectService.findById(id);
     }
 
+    @PutMapping("/{id}")
+    public ResponseEntity<SubjectDto> update(@PathVariable Long id, @RequestBody SubjectDto subjectDto) throws Exception {
+        return new ResponseEntity<>(subjectService.update(id, subjectDto), HttpStatus.OK);
+    }
+
     @DeleteMapping("/{id}")
     public ResponseEntity<String> delete(@PathVariable Long id) throws Exception {
         subjectService.delete(id);

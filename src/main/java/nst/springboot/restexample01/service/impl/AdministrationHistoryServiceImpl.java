@@ -111,9 +111,15 @@ public class AdministrationHistoryServiceImpl implements AdministrationHistorySe
 
     }
 
+    @Transactional
     @Override
-    public void update(AdministrationHistoryDto administrationHistoryDto) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public AdministrationHistoryDto update(Long id, AdministrationHistoryDto administrationHistoryDto) throws Exception {
+        Optional<AdministrationHistory> optionalAdministrationHistory = administrationHistoryRepository.findById(id);
+        if (optionalAdministrationHistory.isPresent()) {
+            administrationHistoryDto.setId(optionalAdministrationHistory.get().getId());
+            return administrationHistoryConverter.toDto(administrationHistoryRepository.save(administrationHistoryConverter.toEntity(administrationHistoryDto)));
+        }
+        throw new Exception("Administration history with that id does not exist");
     }
 
     @Override

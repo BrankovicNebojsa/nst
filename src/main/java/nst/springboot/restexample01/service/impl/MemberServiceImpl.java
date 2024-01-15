@@ -129,9 +129,15 @@ public class MemberServiceImpl implements MemberService {
 
     }
 
+    @Transactional
     @Override
-    public void update(MemberDto memberDto) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public MemberDto update(Long id, MemberDto memberDto) throws Exception {
+        Optional<Member> optionalMember = memberRepository.findById(id);
+        if (optionalMember.isPresent()) {
+            memberDto.setId(optionalMember.get().getId());
+            return memberConverter.toDto(memberRepository.save(memberConverter.toEntity(memberDto)));
+        }
+        throw new Exception("Member with that id does not exist");
     }
 
     @Override

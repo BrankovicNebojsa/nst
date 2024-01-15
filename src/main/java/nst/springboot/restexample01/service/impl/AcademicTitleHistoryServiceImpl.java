@@ -110,9 +110,15 @@ public class AcademicTitleHistoryServiceImpl implements AcademicTitleHistoryServ
 
     }
 
+    @Transactional
     @Override
-    public void update(AcademicTitleHistoryDto academicTitleHistoryDto) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public AcademicTitleHistoryDto update(Long id, AcademicTitleHistoryDto academicTitleHistoryDto) throws Exception {
+        Optional<AcademicTitleHistory> optionalAcademicTitle =academicTitleHistoryRepository.findById(id);
+        if (optionalAcademicTitle.isPresent()) {
+            academicTitleHistoryDto.setId(optionalAcademicTitle.get().getId());
+            return academicTitleHistoryConverter.toDto(academicTitleHistoryRepository.save(academicTitleHistoryConverter.toEntity(academicTitleHistoryDto)));
+        }
+        throw new Exception("Academic title history with that id does not exist");
     }
 
     @Override

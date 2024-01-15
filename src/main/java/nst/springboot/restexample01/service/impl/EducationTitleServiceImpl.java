@@ -8,6 +8,7 @@ import nst.springboot.restexample01.repository.EducationTitleRepository;
 import nst.springboot.restexample01.service.EducationTitleService;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -62,9 +63,15 @@ public class EducationTitleServiceImpl implements EducationTitleService {
         }
     }
 
+    @Transactional
     @Override
-    public void update(EducationTitleDto educationTitleDto) throws Exception {
-
+    public EducationTitleDto update(Long id, EducationTitleDto educationTitleDto) throws Exception {
+        Optional<EducationTitle> optionalEducationTitle = educationTitleRepository.findById(id);
+        if (optionalEducationTitle.isPresent()) {
+            educationTitleDto.setId(optionalEducationTitle.get().getId());
+            return educationTitleConverter.toDto(educationTitleRepository.save(educationTitleConverter.toEntity(educationTitleDto)));
+        }
+        throw new Exception("Education title with that id does not exist");
     }
 
     @Override

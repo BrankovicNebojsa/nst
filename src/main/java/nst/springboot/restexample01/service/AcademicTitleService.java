@@ -15,7 +15,7 @@ public interface AcademicTitleService {
 
     void delete(Long id) throws Exception;
 
-    void update(AcademicTitleDto academicTitleDto) throws Exception;
+    AcademicTitleDto update(Long id, AcademicTitleDto academicTitleDto) throws Exception;
 
     AcademicTitleDto findById(Long id) throws Exception;
 }

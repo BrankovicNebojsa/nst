@@ -8,6 +8,7 @@ import nst.springboot.restexample01.repository.AcademicTitleRepository;
 import nst.springboot.restexample01.service.AcademicTitleService;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -62,9 +63,15 @@ public class AcademicTitleServiceImpl implements AcademicTitleService {
         }
     }
 
+    @Transactional
     @Override
-    public void update(AcademicTitleDto academicTitleDto) throws Exception {
-
+    public AcademicTitleDto update(Long id, AcademicTitleDto academicTitleDto) throws Exception {
+        Optional<AcademicTitle> optionalAcademicTitle = academicTitleRepository.findById(id);
+        if (optionalAcademicTitle.isPresent()) {
+            academicTitleDto.setId(optionalAcademicTitle.get().getId());
+            return academicTitleConverter.toDto(academicTitleRepository.save(academicTitleConverter.toEntity(academicTitleDto)));
+        }
+        throw new Exception("Academic title with that id does not exist");
     }
 
     @Override

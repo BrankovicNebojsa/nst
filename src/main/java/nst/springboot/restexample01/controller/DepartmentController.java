@@ -50,16 +50,15 @@ public class DepartmentController {
     }
 
     @GetMapping("/{id}")
-    public DepartmentDto findById(@PathVariable("id") Long id) throws Exception {
-        return departmentService.findById(id);
+    public ResponseEntity<DepartmentDto> findById(@PathVariable("id") Long id) throws Exception {
+        return new ResponseEntity<>(departmentService.findById(id), HttpStatus.OK);
     }
 
 
     @GetMapping("/query")
-    public DepartmentDto queryById(@RequestParam("id") Long id) throws Exception {
-        return departmentService.findById(id);
+    public ResponseEntity<DepartmentDto> queryById(@RequestParam("id") Long id) throws Exception {
+        return new ResponseEntity<>(departmentService.findById(id), HttpStatus.OK);
     }
-
 
     @DeleteMapping("/{id}")
     public ResponseEntity<String> delete(@PathVariable Long id) throws Exception {
@@ -68,7 +67,13 @@ public class DepartmentController {
 
     }
 
+    @PutMapping("/{id}")
+    public ResponseEntity<DepartmentDto> update(@PathVariable Long id, @RequestBody DepartmentDto departmentDto) throws Exception {
+        return new ResponseEntity<>(departmentService.update(id, departmentDto), HttpStatus.OK);
+    }
+
     @ExceptionHandler(EntityAlreadyExistsException.class)
+
     public ResponseEntity<MyErrorDetails> handleException(EntityAlreadyExistsException e) {
         System.out.println("-----------pozvana metoda za obradu izuzetka u kontroleru -------------");
 

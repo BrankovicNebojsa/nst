@@ -55,6 +55,11 @@ public class AcademicTitleController {
         return academicTitleService.findById(id);
     }
 
+    @PutMapping("/{id}")
+    public ResponseEntity<AcademicTitleDto> update(@PathVariable Long id, @RequestBody AcademicTitleDto academicTitleDto) throws Exception {
+        return new ResponseEntity<>(academicTitleService.update(id, academicTitleDto), HttpStatus.OK);
+    }
+
     @DeleteMapping("/{id}")
     public ResponseEntity<String> delete(@PathVariable Long id) throws Exception {
         academicTitleService.delete(id);

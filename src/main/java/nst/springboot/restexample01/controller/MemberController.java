@@ -45,6 +45,11 @@ public class MemberController {
         return memberService.findById(id);
     }
 
+    @PutMapping("/{id}")
+    public ResponseEntity<MemberDto> update(@PathVariable Long id, @RequestBody MemberDto memberDto) throws Exception {
+        return new ResponseEntity<>(memberService.update(id, memberDto), HttpStatus.OK);
+    }
+
     @DeleteMapping("/{id}")
     public ResponseEntity<String> delete(@PathVariable Long id) throws Exception {
         memberService.delete(id);

@@ -51,6 +51,11 @@ public class AdministrationHistoryController {
         return administrationHistoryService.findById(id);
     }
 
+    @PutMapping("/{id}")
+    public ResponseEntity<AdministrationHistoryDto> update(@PathVariable Long id, @RequestBody AdministrationHistoryDto administrationHistoryDto) throws Exception {
+        return new ResponseEntity<>(administrationHistoryService.update(id, administrationHistoryDto), HttpStatus.OK);
+    }
+
     @DeleteMapping("/{id}")
     public ResponseEntity<String> delete(@PathVariable Long id) throws Exception {
         administrationHistoryService.delete(id);

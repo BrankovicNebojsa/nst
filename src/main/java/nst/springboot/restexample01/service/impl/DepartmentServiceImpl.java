@@ -8,6 +8,7 @@ import nst.springboot.restexample01.repository.DepartmentRepository;
 import nst.springboot.restexample01.service.DepartmentService;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -49,9 +50,15 @@ public class DepartmentServiceImpl implements DepartmentService {
 
     }
 
+    @Transactional
     @Override
-    public void update(DepartmentDto department) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public DepartmentDto update(Long id, DepartmentDto departmentDto) throws Exception {
+        Optional<Department> optionalDepartment = departmentRepository.findById(id);
+        if (optionalDepartment.isPresent()) {
+            departmentDto.setId(optionalDepartment.get().getId());
+            return departmentConverter.toDto(departmentRepository.save(departmentConverter.toEntity(departmentDto)));
+        }
+        throw new Exception("Department with that id does not exist");
     }
 
     @Override

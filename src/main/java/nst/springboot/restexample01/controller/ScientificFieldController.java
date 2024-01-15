@@ -51,6 +51,11 @@ public class ScientificFieldController {
         return scientificFieldService.findById(id);
     }
 
+    @PutMapping("/{id}")
+    public ResponseEntity<ScientificFieldDto> update(@PathVariable Long id, @RequestBody ScientificFieldDto scientificFieldDto) throws Exception {
+        return new ResponseEntity<>(scientificFieldService.update(id, scientificFieldDto), HttpStatus.OK);
+    }
+
     @DeleteMapping("/{id}")
     public ResponseEntity<String> delete(@PathVariable Long id) throws Exception {
         scientificFieldService.delete(id);
