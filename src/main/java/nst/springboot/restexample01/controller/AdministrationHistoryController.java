@@ -51,6 +51,11 @@ public class AdministrationHistoryController {
         return administrationHistoryService.findById(id);
     }
 
+    @GetMapping("/department/{id}")
+    public List<AdministrationHistoryDto> getAdministrationHistoryByDepartment(@RequestParam("id") Long id) throws Exception {
+        return administrationHistoryService.getByDepartmentId(id);
+    }
+
     @PutMapping("/{id}")
     public ResponseEntity<AdministrationHistoryDto> update(@PathVariable Long id, @RequestBody AdministrationHistoryDto administrationHistoryDto) throws Exception {
         return new ResponseEntity<>(administrationHistoryService.update(id, administrationHistoryDto), HttpStatus.OK);

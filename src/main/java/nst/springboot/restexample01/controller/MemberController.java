@@ -1,6 +1,7 @@
 package nst.springboot.restexample01.controller;
 
 import jakarta.validation.Valid;
+import nst.springboot.restexample01.dto.AcademicTitleHistoryDto;
 import nst.springboot.restexample01.dto.MemberDto;
 import nst.springboot.restexample01.service.MemberService;
 import org.springframework.http.HttpStatus;
@@ -43,6 +44,11 @@ public class MemberController {
     @GetMapping("/query")
     public MemberDto queryById(@RequestParam("id") Long id) throws Exception {
         return memberService.findById(id);
+    }
+
+    @GetMapping("/academic-title-history/{id}")
+    public List<AcademicTitleHistoryDto> getAcademicTitleHistoryOfAMember(@RequestParam("id") Long id) throws Exception {
+        return memberService.getAcademicTitleHistoryOfMember(id);
     }
 
     @PutMapping("/{id}")

@@ -23,4 +23,6 @@ public interface AdministrationHistoryService {
 
     MemberDto findCurrentSecretaryByDepartmentId(Long id) throws Exception;
 
+    List<AdministrationHistoryDto> getByDepartmentId(Long id) throws Exception;
+
 }

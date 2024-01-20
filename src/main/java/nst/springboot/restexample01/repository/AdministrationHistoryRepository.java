@@ -5,11 +5,15 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Optional;
 
 @Repository
 public interface AdministrationHistoryRepository extends JpaRepository<AdministrationHistory, Long> {
 
     Optional<AdministrationHistory> findByEndDateAndDepartmentId(Date date, Long id);
+    Optional<List<AdministrationHistory>> findByDepartmentId(Long id);
+
+
 
 }

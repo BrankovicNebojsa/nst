@@ -15,6 +15,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -153,5 +154,18 @@ public class AdministrationHistoryServiceImpl implements AdministrationHistorySe
         } else {
             throw new Exception("Administration history does not exist!");
         }
+    }
+
+    @Override
+    public List<AdministrationHistoryDto> getByDepartmentId(Long id) throws Exception {
+        Optional<List<AdministrationHistory>> administrationHistoryOptional = administrationHistoryRepository.findByDepartmentId(id);
+        if (administrationHistoryOptional.isPresent()) {
+            List<AdministrationHistoryDto> administrationHistoryDtos = new ArrayList<>();
+            for (AdministrationHistory administrationHistory : administrationHistoryOptional.get()) {
+                administrationHistoryDtos.add(administrationHistoryConverter.toDto(administrationHistory));
+            }
+            return administrationHistoryDtos;
+        }
+        throw new Exception("Administration history does not exist for this department id!");
     }
 }

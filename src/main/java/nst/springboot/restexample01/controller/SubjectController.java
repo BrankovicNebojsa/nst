@@ -50,8 +50,6 @@ public class SubjectController {
     public ResponseEntity<String> delete(@PathVariable Long id) throws Exception {
         subjectService.delete(id);
         return new ResponseEntity<>("Department removed!", HttpStatus.OK);
-
     }
-
 
 }

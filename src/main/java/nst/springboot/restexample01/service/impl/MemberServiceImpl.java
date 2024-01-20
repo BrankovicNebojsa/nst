@@ -1,7 +1,9 @@
 package nst.springboot.restexample01.service.impl;
 
+import nst.springboot.restexample01.converter.impl.AcademicTitleHistoryConverter;
 import nst.springboot.restexample01.converter.impl.MemberConverter;
 import nst.springboot.restexample01.domain.*;
+import nst.springboot.restexample01.dto.AcademicTitleHistoryDto;
 import nst.springboot.restexample01.dto.MemberDto;
 import nst.springboot.restexample01.repository.*;
 import nst.springboot.restexample01.service.MemberService;
@@ -9,6 +11,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -17,6 +20,8 @@ import java.util.stream.Collectors;
 public class MemberServiceImpl implements MemberService {
     private final DepartmentRepository departmentRepository;
     private final AcademicTitleRepository academicTitleRepository;
+    private final AcademicTitleHistoryRepository academicTitleHistoryRepository;
+    private final AcademicTitleHistoryConverter academicTitleHistoryConverter;
     private final ScientificFieldRepository scientificFieldRepository;
     private final EducationTitleRepository educationTitleRepository;
     private final MemberConverter memberConverter;
@@ -25,12 +30,16 @@ public class MemberServiceImpl implements MemberService {
     public MemberServiceImpl(
             DepartmentRepository departmentRepository,
             AcademicTitleRepository academicTitleRepository,
+            AcademicTitleHistoryRepository academicTitleHistoryRepository,
+            AcademicTitleHistoryConverter academicTitleHistoryConverter,
             ScientificFieldRepository scientificFieldRepository,
             EducationTitleRepository educationTitleRepository,
             MemberConverter memberConverter,
             MemberRepository memberRepository) {
         this.departmentRepository = departmentRepository;
         this.academicTitleRepository = academicTitleRepository;
+        this.academicTitleHistoryRepository = academicTitleHistoryRepository;
+        this.academicTitleHistoryConverter = academicTitleHistoryConverter;
         this.scientificFieldRepository = scientificFieldRepository;
         this.educationTitleRepository = educationTitleRepository;
         this.memberConverter = memberConverter;
@@ -151,4 +160,16 @@ public class MemberServiceImpl implements MemberService {
         }
     }
 
+    @Override
+    public List<AcademicTitleHistoryDto> getAcademicTitleHistoryOfMember(Long id) throws Exception {
+        Optional<List<AcademicTitleHistory>> academicTitleHistory = academicTitleHistoryRepository.findByMemberId(id);
+        if (academicTitleHistory.isPresent()) {
+            List<AcademicTitleHistoryDto> academicTitleHistoryDtos = new ArrayList<>();
+            for (AcademicTitleHistory academicTitleHistory1 : academicTitleHistory.get()) {
+                academicTitleHistoryDtos.add(academicTitleHistoryConverter.toDto(academicTitleHistory1));
+            }
+            return academicTitleHistoryDtos;
+        }
+        throw new Exception("Academic title history does not exist for that member!");
+    }
 }
