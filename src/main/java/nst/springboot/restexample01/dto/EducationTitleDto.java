@@ -3,6 +3,7 @@ package nst.springboot.restexample01.dto;
 import jakarta.validation.constraints.NotNull;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 public class EducationTitleDto implements Serializable {
     private Long id;
@@ -37,4 +38,13 @@ public class EducationTitleDto implements Serializable {
     public void setName(String name) {
         this.name = name;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        EducationTitleDto that = (EducationTitleDto) o;
+        return Objects.equals(name, that.name);
+    }
+
 }

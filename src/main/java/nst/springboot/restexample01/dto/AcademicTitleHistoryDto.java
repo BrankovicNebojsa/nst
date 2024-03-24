@@ -5,11 +5,11 @@ import java.util.Date;
 
 public class AcademicTitleHistoryDto implements Serializable {
     private Long id;
-    private final Date startDate;
+    private Date startDate;
     private Date endDate;
-    private final MemberDto memberDto;
-    private final AcademicTitleDto academicTitleDto;
-    private final ScientificFieldDto scientificFieldDto;
+    private MemberDto memberDto;
+    private AcademicTitleDto academicTitleDto;
+    private ScientificFieldDto scientificFieldDto;
 
     public AcademicTitleHistoryDto(Long id, Date startDate, Date endDate, MemberDto memberDto, AcademicTitleDto academicTitleDto, ScientificFieldDto scientificFieldDto) {
         this.id = id;
@@ -32,6 +32,10 @@ public class AcademicTitleHistoryDto implements Serializable {
         return startDate;
     }
 
+    public void setStartDate(Date startDate) {
+        this.startDate = startDate;
+    }
+
     public Date getEndDate() {
         return endDate;
     }
@@ -44,12 +48,32 @@ public class AcademicTitleHistoryDto implements Serializable {
         return memberDto;
     }
 
+    public void setMemberDto(MemberDto memberDto) {
+        this.memberDto = memberDto;
+    }
+
     public AcademicTitleDto getAcademicTitleDto() {
         return academicTitleDto;
     }
 
+    public void setAcademicTitleDto(AcademicTitleDto academicTitleDto) {
+        this.academicTitleDto = academicTitleDto;
+    }
+
     public ScientificFieldDto getScientificFieldDto() {
         return scientificFieldDto;
+    }
+
+    public void setScientificFieldDto(ScientificFieldDto scientificFieldDto) {
+        this.scientificFieldDto = scientificFieldDto;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        AcademicTitleHistoryDto that = (AcademicTitleHistoryDto) o;
+        return startDate.compareTo(that.startDate) == 0 && endDate.compareTo(that.endDate) == 0 && memberDto.equals(that.memberDto) && academicTitleDto.equals(that.academicTitleDto) && scientificFieldDto.equals(that.scientificFieldDto);
     }
 
 }

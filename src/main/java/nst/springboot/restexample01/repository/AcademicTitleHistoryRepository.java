@@ -9,7 +9,6 @@ import java.util.Optional;
 
 @Repository
 public interface AcademicTitleHistoryRepository extends JpaRepository<AcademicTitleHistory, Long> {
-
     Optional<List<AcademicTitleHistory>> findByMemberId(Long id);
 
 }

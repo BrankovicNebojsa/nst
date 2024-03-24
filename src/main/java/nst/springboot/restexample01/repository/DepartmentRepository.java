@@ -10,10 +10,5 @@ import java.util.Optional;
 
 @Repository
 public interface DepartmentRepository extends JpaRepository<Department, Long> {
-
-    @Override
-    @Transactional(propagation = Propagation.MANDATORY)
-    public <S extends Department> S save(S entity);
-
     Optional<Department> findByName(String name);
 }

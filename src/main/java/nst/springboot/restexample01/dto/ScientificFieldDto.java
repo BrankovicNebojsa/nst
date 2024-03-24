@@ -2,6 +2,8 @@ package nst.springboot.restexample01.dto;
 
 import jakarta.validation.constraints.NotNull;
 
+import java.util.Objects;
+
 public class ScientificFieldDto {
     private Long id;
     @NotNull
@@ -33,6 +35,14 @@ public class ScientificFieldDto {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        ScientificFieldDto that = (ScientificFieldDto) o;
+        return Objects.equals(name, that.name);
     }
 
 }
