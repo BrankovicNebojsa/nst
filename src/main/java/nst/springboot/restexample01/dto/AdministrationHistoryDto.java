@@ -78,4 +78,13 @@ public class AdministrationHistoryDto implements Serializable {
     public void setSecretaryDto(MemberDto secretaryDto) {
         this.secretaryDto = secretaryDto;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        AdministrationHistoryDto that = (AdministrationHistoryDto) o;
+        return startDate.compareTo(that.startDate) == 0 && endDate.compareTo(that.endDate) == 0 && departmentDto.equals(that.departmentDto) && headOfDepartmentDto.equals(that.headOfDepartmentDto) && secretaryDto.equals(that.secretaryDto);
+    }
+
 }

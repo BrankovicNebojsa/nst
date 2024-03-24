@@ -1,6 +1,7 @@
 package nst.springboot.restexample01.dto;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 public class MemberDto implements Serializable {
     private Long id;
@@ -98,5 +99,26 @@ public class MemberDto implements Serializable {
 
     public void setEducationTitleDto(EducationTitleDto educationTitleDto) {
         this.educationTitleDto = educationTitleDto;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        MemberDto memberDto = (MemberDto) o;
+        return Objects.equals(firstName, memberDto.firstName) && Objects.equals(lastName, memberDto.lastName) && Objects.equals(departmentDto, memberDto.departmentDto) && Objects.equals(academicTitleDto, memberDto.academicTitleDto) && Objects.equals(scientificFieldDto, memberDto.scientificFieldDto) && Objects.equals(educationTitleDto, memberDto.educationTitleDto);
+    }
+
+    @Override
+    public String toString() {
+        return "MemberDto{" +
+                "id=" + id +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", departmentDto=" + departmentDto +
+                ", academicTitleDto=" + academicTitleDto +
+                ", scientificFieldDto=" + scientificFieldDto +
+                ", educationTitleDto=" + educationTitleDto +
+                '}';
     }
 }

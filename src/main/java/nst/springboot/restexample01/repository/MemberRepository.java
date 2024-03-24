@@ -10,9 +10,5 @@ import java.util.List;
 
 @Repository
 public interface MemberRepository extends JpaRepository<Member, Long> {
-    @Override
-    @Transactional(propagation = Propagation.MANDATORY)
-    <S extends Member> S save(S entity);
-
     List<Member> getAllByDepartmentId(Long id);
 }

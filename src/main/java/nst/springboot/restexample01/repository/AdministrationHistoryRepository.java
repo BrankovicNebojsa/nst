@@ -10,7 +10,6 @@ import java.util.Optional;
 
 @Repository
 public interface AdministrationHistoryRepository extends JpaRepository<AdministrationHistory, Long> {
-
     Optional<AdministrationHistory> findByEndDateAndDepartmentId(Date date, Long id);
     Optional<List<AdministrationHistory>> findByDepartmentId(Long id);
 

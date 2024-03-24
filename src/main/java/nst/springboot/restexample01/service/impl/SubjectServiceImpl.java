@@ -2,8 +2,10 @@ package nst.springboot.restexample01.service.impl;
 
 import nst.springboot.restexample01.converter.impl.SubjectConverter;
 import nst.springboot.restexample01.domain.Department;
+import nst.springboot.restexample01.domain.ScientificField;
 import nst.springboot.restexample01.domain.Subject;
 import nst.springboot.restexample01.dto.SubjectDto;
+import nst.springboot.restexample01.exception.EntityAlreadyExistsException;
 import nst.springboot.restexample01.repository.DepartmentRepository;
 import nst.springboot.restexample01.repository.SubjectRepository;
 import nst.springboot.restexample01.service.SubjectService;
@@ -30,11 +32,15 @@ public class SubjectServiceImpl implements SubjectService {
     @Override
     @Transactional
     public SubjectDto save(SubjectDto subjectDto) throws Exception {
-        Subject subject = subjectConverter.toEntity(subjectDto);
-        subject.setDepartment(handleDepartment(subject));
 
-        subjectRepository.save(subject);
-        return subjectDto;
+        Optional<Subject> subjectOptional = subjectRepository.findByName(subjectDto.getName());
+        if (subjectOptional.isPresent()) {
+            throw new EntityAlreadyExistsException("Subject with that name already exists!");
+        } else {
+            Subject subject = subjectConverter.toEntity(subjectDto);
+            subject = subjectRepository.save(subject);
+            return subjectConverter.toDto(subject);
+        }
     }
 
     private Department handleDepartment(Subject subject) {

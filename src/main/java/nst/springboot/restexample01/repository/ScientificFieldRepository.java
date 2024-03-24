@@ -10,9 +10,5 @@ import java.util.Optional;
 
 @Repository
 public interface ScientificFieldRepository extends JpaRepository<ScientificField, Long> {
-    @Override
-    @Transactional(propagation = Propagation.MANDATORY)
-    public <S extends ScientificField> S save(S entity);
-
     Optional<ScientificField> findByName(String name);
 }
