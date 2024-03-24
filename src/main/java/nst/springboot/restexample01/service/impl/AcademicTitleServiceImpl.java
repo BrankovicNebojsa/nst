@@ -47,8 +47,10 @@ public class AcademicTitleServiceImpl implements AcademicTitleService {
     @Override
     public List<AcademicTitleDto> getAll(Pageable pageable) {
         return academicTitleRepository
-                .findAll(pageable).getContent()
-                .stream().map(academicTitleConverter::toDto)
+                .findAll(pageable)
+                .getContent()
+                .stream()
+                .map(academicTitleConverter::toDto)
                 .collect(Collectors.toList());
     }
 
