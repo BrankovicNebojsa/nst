@@ -3,19 +3,30 @@ package nst.springboot.restexample01;
 import nst.springboot.restexample01.dto.AcademicTitleDto;
 import nst.springboot.restexample01.exception.EntityAlreadyExistsException;
 import nst.springboot.restexample01.service.AcademicTitleService;
+import nst.springboot.restexample01.service.impl.AcademicTitleServiceImpl;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.boot.autoconfigure.liquibase.LiquibaseAutoConfiguration;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.context.annotation.Import;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+@EnableAutoConfiguration(exclude = LiquibaseAutoConfiguration.class)
+@ExtendWith(SpringExtension.class)
 @SpringBootTest
 class AcademicTitleServiceTest {
+
 
     @Autowired
     private AcademicTitleService academicTitleService;
