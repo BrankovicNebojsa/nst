@@ -10,9 +10,5 @@ import java.util.Optional;
 
 @Repository
 public interface AcademicTitleRepository extends JpaRepository<AcademicTitle, Long> {
-    @Override
-    @Transactional(propagation = Propagation.MANDATORY)
-    public <S extends AcademicTitle> S save(S entity);
-
     Optional<AcademicTitle> findByName(String name);
 }

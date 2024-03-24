@@ -5,16 +5,16 @@ import java.io.Serializable;
 public class SubjectDto implements Serializable {
     private Long id;
     private String name;
-    private int esbp;
+    private int espb;
     private DepartmentDto departmentDto;
 
     public SubjectDto() {
     }
 
-    public SubjectDto(Long id, String name, int esbp, DepartmentDto departmentDto) {
+    public SubjectDto(Long id, String name, int espb, DepartmentDto departmentDto) {
         this.id = id;
         this.name = name;
-        this.esbp = esbp;
+        this.espb = espb;
         this.departmentDto = departmentDto;
     }
 
@@ -34,12 +34,12 @@ public class SubjectDto implements Serializable {
         this.name = name;
     }
 
-    public int getEsbp() {
-        return esbp;
+    public int getEspb() {
+        return espb;
     }
 
-    public void setEsbp(int esbp) {
-        this.esbp = esbp;
+    public void setEspb(int espb) {
+        this.espb = espb;
     }
 
     public DepartmentDto getDepartmentDto() {
