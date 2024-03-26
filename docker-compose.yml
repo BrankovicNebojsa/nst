@@ -1,0 +1,32 @@
+version: "3"
+
+services:
+  sonarqube:
+    image: sonarqube:community
+    depends_on:
+      - db
+    environment:
+      SONAR_JDBC_URL: jdbc:mysql://nst2023:3306/sonar?useUnicode=true&characterEncoding=utf8&rewriteBatchedStatements=true&useConfigs=maxPerformance&useSSL=false
+      SONAR_JDBC_USERNAME: root
+      SONAR_JDBC_PASSWORD:
+    volumes:
+      - sonarqube_data:/opt/sonarqube/data
+      - sonarqube_extensions:/opt/sonarqube/extensions
+      - sonarqube_logs:/opt/sonarqube/logs
+    ports:
+      - "9000:9000"
+  db:
+    image: mysql:latest
+    environment:
+      MYSQL_DATABASE: sonar
+      MYSQL_USER: sonar
+      MYSQL_PASSWORD: sonar
+      MYSQL_ROOT_PASSWORD: my_root_password  # Specify a root password if needed
+    volumes:
+      - mysql_data:/var/lib/mysql
+
+volumes:
+  sonarqube_data:
+  sonarqube_extensions:
+  sonarqube_logs:
+  mysql_data:
